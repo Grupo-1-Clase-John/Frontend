@@ -154,6 +154,15 @@
       "description": "eeeeeeeeeeeeeeeeee",
       "status": "pendiente",
       "createdAt": "2026-05-13T15:22:52.181Z"
+    },
+    {
+      "id": "pTWI-usMpd4",
+      "userId": 1,
+      "title": "qwerty",
+      "description": "qwerty",
+      "status": "pendiente",
+      "createdAt": "2026-05-17T18:22:42.778Z"
     }
-  ]
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }
