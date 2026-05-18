@@ -1,0 +1,105 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "name": "Ana Torres",
+      "email": "ana.torres@mail.com"
+    },
+    {
+      "id": "2",
+      "name": "Carlos Gómez",
+      "email": "carlos.gomez@mail.com"
+    },
+    {
+      "id": "3",
+      "name": "María López",
+      "email": "maria.lopez@mail.com"
+    },
+    {
+      "id": "4",
+      "name": "Juan Pérez",
+      "email": "juan.perez@mail.com"
+    },
+    {
+      "id": "5",
+      "name": "Laura Martínez",
+      "email": "laura.martinez@mail.com"
+    },
+    {
+      "id": "6",
+      "name": "Pedro Sánchez",
+      "email": "pedro.sanchez@mail.com"
+    },
+    {
+      "id": "7",
+      "name": "Sofía Ramírez",
+      "email": "sofia.ramirez@mail.com"
+    },
+    {
+      "id": "8",
+      "name": "Andrés Morales",
+      "email": "andres.morales@mail.com"
+    },
+    {
+      "id": "9",
+      "name": "Valentina Cruz",
+      "email": "valentina.cruz@mail.com"
+    },
+    {
+      "id": "10",
+      "name": "Diego Herrera",
+      "email": "diego.herrera@mail.com"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "1",
+      "userId": 1,
+      "title": "Revisar correo electrónico",
+      "description": "Organizar bandeja de entrada y responder mensajes pendientes",
+      "status": "pendiente",
+      "createdAt": "2026-05-10T09:00:00Z"
+    },
+    {
+      "id": "2",
+      "userId": 1,
+      "title": "Preparar presentación",
+      "description": "Crear diapositivas para la reunión del viernes",
+      "status": "en-proceso",
+      "createdAt": "2026-05-11T14:30:00Z"
+    },
+    {
+      "id": "3",
+      "userId": 2,
+      "title": "Actualizar inventario",
+      "description": "Verificar stock de productos en almacén",
+      "status": "completada",
+      "createdAt": "2026-05-09T10:00:00Z"
+    },
+    {
+      "id": "4",
+      "userId": 3,
+      "title": "Llamar a cliente",
+      "description": "Confirmar cita médica para el próximo martes",
+      "status": "pendiente",
+      "createdAt": "2026-05-12T08:00:00Z"
+    },
+    {
+      "id": "5",
+      "userId": 3,
+      "title": "Enviar informe mensual",
+      "description": "Compilar datos y enviar al jefe de área",
+      "status": "completada",
+      "createdAt": "2026-05-08T16:00:00Z"
+    },
+    {
+      "id": "KL_YDbcIkY4",
+      "userId": 2,
+      "title": "Funciona?",
+      "description": "Prueba de funcionamiento",
+      "status": "en-proceso",
+      "createdAt": "2026-05-18T14:15:02.720Z"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}
