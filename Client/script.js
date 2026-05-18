@@ -14,7 +14,7 @@
  */
 
 // ============================================
-// 1. SELECCIÓN DE ELEMENTOS DEL DOM
+// SELECCIÓN DE ELEMENTOS DEL DOM
 // ============================================
 // Aquí se guardan las referencias a los elementos del HTML que se usan
 // durante toda la aplicación: formularios, mensajes, tabla de tareas, etc.
@@ -173,160 +173,53 @@ import {
      * Intenta guardar la tarea en el backend remoto y devuelve la tarea guardada.
      * Si falla, intenta escribirla en Server/db.json directamente.
      */
-    saveTaskToBackend
+    saveTaskToBackend,
+
+    saveTaskToDbJson,
+
+    /**
+     * Lee las tareas almacenadas en localStorage.
+     */
+    loadSavedTasks,
+
+    /**
+     * Carga las tareas del usuario actual en la tabla de tareas.
+     */
+    loadUserTasks,
+
+    /**
+     * Inserta una fila nueva en la tabla de tareas con los datos de la tarea.
+     */
+    addTaskToTable,
+
+    /**
+     * Escapa texto para evitar inyección de HTML en la tabla.
+     */
+    escapeHtml,
+
+    /**
+     * Devuelve la clase CSS correspondiente al estado de la tarea.
+     */
+    getStatusClass,
+
+    /**
+     * Devuelve el texto legible para cada estado de la tarea.
+     */
+    getStatusText,
+
+    /**
+     * Maneja la edición de los campos de entrada para eliminar mensajes de error.
+     */
+    handleInputChange,
+
+    /**
+     * Limpia todas las filas de la tabla de tareas y muestra estado vacío.
+     */
+    clearTasksTable
 } from "./index.js";
 
-async function saveTaskToDbJson(task) {
-    const dbUrl = `${apiUrl}Server/db.json`;
-    const response = await fetch(dbUrl);
-    if (!response.ok) {
-        throw new Error(`No se pudo leer db.json: HTTP ${response.status}`);
-    }
-
-    const data = await response.json();
-    const newTask = {
-        ...task,
-        userId: Number(task.userId) || task.userId
-    };
-
-    const updatedData = {
-        ...data,
-        tasks: Array.isArray(data.tasks) ? [...data.tasks, newTask] : [newTask]
-    };
-
-    const putResponse = await fetch(dbUrl, {
-        method: "PUT",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(updatedData, null, 2)
-    });
-
-    if (!putResponse.ok) {
-        throw new Error(`No se pudo guardar en db.json: HTTP ${putResponse.status}`);
-    }
-
-    return newTask;
-}
-
-// Lee las tareas almacenadas en localStorage.
-function loadSavedTasks() {
-    try {
-        const stored = localStorage.getItem(STORAGE_KEYS.TASKS);
-        return stored ? JSON.parse(stored) : [];
-    } catch (error) {
-        console.warn("No se pudo leer localStorage", error);
-        return [];
-    }
-}
-
-// Carga las tareas del usuario actual en la tabla de tareas.
-function loadUserTasks(userId) {
-    clearTasksTable();
-    const userTasks = getUserTasks(userId);
-
-    if (userTasks.length === 0) {
-        showEmptyState();
-        return;
-    }
-
-    hideEmptyState();
-    userTasks.forEach(task => addTaskToTable(task));
-}
-
-// Inserta una fila nueva en la tabla de tareas con los datos de la tarea.
-function addTaskToTable(task) {
-    if (tasksTableBody.children.length === 0) {
-        hideEmptyState();
-    }
-
-    const row = document.createElement("tr");
-    row.classList.add("tasks__row");
-
-    const statusClass = getStatusClass(task.status);
-    const user = dbUsers.find(u => normalizeId(u.id) === normalizeId(task.userId));
-    const userName = user ? user.name : `Usuario ${normalizeId(task.userId)}`;
-
-    const titleCell = document.createElement("td");
-    titleCell.classList.add("tasks__cell");
-    titleCell.textContent = task.title;
-
-    const descriptionCell = document.createElement("td");
-    descriptionCell.classList.add("tasks__cell");
-    descriptionCell.textContent = task.description;
-
-    const statusCell = document.createElement("td");
-    statusCell.classList.add("tasks__cell");
-    const statusBadge = document.createElement("span");
-    statusBadge.classList.add("task-status", `task-status--${statusClass}`);
-    statusBadge.textContent = getStatusText(task.status);
-    statusCell.appendChild(statusBadge);
-
-    const userCell = document.createElement("td");
-    userCell.classList.add("tasks__cell");
-    userCell.textContent = userName;
-
-    row.appendChild(titleCell);
-    row.appendChild(descriptionCell);
-    row.appendChild(statusCell);
-    row.appendChild(userCell);
-
-    tasksTableBody.appendChild(row);
-}
-
-// Escapa texto para evitar inyección de HTML en la tabla.
-function escapeHtml(text) {
-    const div = document.createElement("div");
-    div.textContent = text;
-    return div.innerHTML;
-}
-
-// Devuelve la clase CSS correspondiente al estado de la tarea.
-function getStatusClass(status) {
-    switch (status) {
-        case "pendiente":
-            return "pending";
-        case "en-proceso":
-            return "in-progress";
-        case "completada":
-            return "completed";
-        default:
-            return "pending";
-    }
-}
-
-// Devuelve el texto legible para cada estado de la tarea.
-function getStatusText(status) {
-    switch (status) {
-        case "pendiente":
-            return "Pendiente";
-        case "en-proceso":
-            return "En Proceso";
-        case "completada":
-            return "Completada";
-        default:
-            return status;
-    }
-}
-
-// Maneja la edición de los campos de entrada para eliminar mensajes de error.
-function handleInputChange(event) {
-    const inputField = event.target;
-    const errorElement = inputField.nextElementSibling;
-    if (errorElement && errorElement.classList.contains("form__error")) {
-        clearError(errorElement);
-        inputField.classList.remove("error");
-    }
-}
-
-// Limpia todas las filas de la tabla de tareas y muestra estado vacío.
-function clearTasksTable() {
-    tasksTableBody.innerHTML = "";
-    showEmptyState();
-}
-
 // ============================================
-// 5. REGISTRO DE EVENTOS
+// REGISTRO DE EVENTOS
 // ============================================
 
 userSearchForm.addEventListener("submit", handleUserSearch);

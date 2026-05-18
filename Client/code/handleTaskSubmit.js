@@ -8,7 +8,7 @@ import {
     addTaskToTable
 } from '../index.js'
 
-const handleTaskSubmit = (event) => {
+const handleTaskSubmit = async (event) => {
     event.preventDefault();
     event.stopPropagation();
     clearAllErrors();
