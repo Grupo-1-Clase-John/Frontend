@@ -1,4 +1,4 @@
-export const apiUrl = 'http://192.168.0.13:3000/';
+export const apiUrl = 'http://192.168.0.19:3005/';
 
 export const FALLBACK_USERS = [];
 export const FALLBACK_TASKS = [];
