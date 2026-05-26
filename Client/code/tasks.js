@@ -2,6 +2,7 @@ import { dom, state } from './appContext.js';
 import { hideEmptyState, showEmptyState } from './ui.js';
 import { getStatusClass, getStatusText, escapeHtml, normalizeId } from './helpers.js';
 
+
 // Añade una fila a la tabla de tareas con la información de una tarea.
 export const addTaskToTable = (task) => {
     if (dom.tasksTableBody.children.length === 0) {
@@ -10,6 +11,7 @@ export const addTaskToTable = (task) => {
 
     const row = document.createElement('tr');
     row.classList.add('tasks__row');
+    row.dataset.taskId = task.id;
 
     const statusClass = getStatusClass(task.status);
     const user = state.dbUsers.find(u => normalizeId(u.id) === normalizeId(task.userId));
@@ -30,22 +32,36 @@ export const addTaskToTable = (task) => {
     statusBadge.textContent = getStatusText(task.status);
     statusCell.appendChild(statusBadge);
 
-    const actionsCell = document.createElement('td');
-    actionsCell.classList.add('tasks__cell');
-    const deleteButton = document.createElement('button');
-    deleteButton.classList.add('btn', 'btn--primary');
-    deleteButton.textContent = 'Eliminar';
-    actionsCell.appendChild(deleteButton);
-
     const userCell = document.createElement('td');
-    userCell.classList.add('tasks__cell');
-    userCell.textContent = userName;
+     userCell.classList.add('tasks__cell');
+     userCell.textContent = userName;
+
+    const actionsCell = document.createElement('td');
+      actionsCell.classList.add('tasks__cell');
+
+    const deleteButton = document.createElement('button');
+      deleteButton.classList.add('btn', 'btn--primary', 'btn--small');
+      deleteButton.textContent = 'Eliminar';
+      actionsCell.appendChild(deleteButton);
+
+    const editButton = document.createElement('button');
+      editButton.type = 'button';
+      editButton.classList.add('btn', 'btn--primary', 'btn--small');
+      editButton.textContent = 'Editar';
+      editButton.addEventListener('click', () => {
+      document.dispatchEvent(new CustomEvent('task:edit', {
+        detail: {
+            taskId: task.id
+        }
+        }));
+      });
+    actionsCell.appendChild(editButton);
 
     row.appendChild(titleCell);
     row.appendChild(descriptionCell);
     row.appendChild(statusCell);
-    row.appendChild(actionsCell);
     row.appendChild(userCell);
+    row.appendChild(actionsCell);
 
     dom.tasksTableBody.appendChild(row);
 };

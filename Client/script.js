@@ -4,6 +4,7 @@ import {
     handleUserSearch,
     handleTaskSubmit,
     handleInputChange,
+    handleTaskEdit,
     handleTaskDelete
 } from './index.js';
 
@@ -18,6 +19,10 @@ const {
 
 userSearchForm.addEventListener('submit', handleUserSearch);
 taskForm.addEventListener('submit', handleTaskSubmit);
+
+document.addEventListener('task:edit', (event) => {
+    handleTaskEdit(event.detail.taskId);
+});
 
 dom.tasksTableBody.addEventListener('click', handleTaskDelete);
 

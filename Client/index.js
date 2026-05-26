@@ -15,7 +15,9 @@ export {
     hideUserCard,
     enableTaskForm,
     disableTaskForm,
-    handleInputChange
+    handleInputChange,
+    setTaskFormEditMode,
+    setTaskFormCreateMode
 } from './code/ui.js';
 export {
     getStatusClass,
@@ -30,6 +32,7 @@ export {
 export {
     findUserByDocument,
     saveTaskToBackend,
+    updateTaskInBackend,
     loadLocalData
 } from './code/data.js';
 export {
@@ -40,5 +43,6 @@ export {
 export {
     handleUserSearch,
     handleTaskSubmit,
+    handleTaskEdit,
     handleTaskDelete
 } from './code/handlers.js';
