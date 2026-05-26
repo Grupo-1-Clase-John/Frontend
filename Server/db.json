@@ -99,6 +99,14 @@
       "description": "Prueba de funcionamiento",
       "status": "en-proceso",
       "createdAt": "2026-05-18T14:15:02.720Z"
+    },
+    {
+      "id": "1779824908329",
+      "userId": 3,
+      "title": "gfgfgfg",
+      "description": "fggfgf",
+      "status": "pendiente",
+      "createdAt": "2026-05-26T19:48:28.329Z"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
