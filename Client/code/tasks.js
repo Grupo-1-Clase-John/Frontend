@@ -30,6 +30,13 @@ export const addTaskToTable = (task) => {
     statusBadge.textContent = getStatusText(task.status);
     statusCell.appendChild(statusBadge);
 
+    const actionsCell = document.createElement('td');
+    actionsCell.classList.add('tasks__cell');
+    const deleteButton = document.createElement('button');
+    deleteButton.classList.add('btn', 'btn--primary');
+    deleteButton.textContent = 'Eliminar';
+    actionsCell.appendChild(deleteButton);
+
     const userCell = document.createElement('td');
     userCell.classList.add('tasks__cell');
     userCell.textContent = userName;
@@ -37,6 +44,7 @@ export const addTaskToTable = (task) => {
     row.appendChild(titleCell);
     row.appendChild(descriptionCell);
     row.appendChild(statusCell);
+    row.appendChild(actionsCell);
     row.appendChild(userCell);
 
     dom.tasksTableBody.appendChild(row);

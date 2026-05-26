@@ -16,10 +16,14 @@ import {
     validateUserSearch,
     validateTaskForm
 } from './validation.js';
-import { normalizeId } from './helpers.js';
+import {
+    normalizeId,
+    getStatusText
+} from './helpers.js';
 import {
     findUserByDocument,
-    saveTaskToBackend
+    saveTaskToBackend,
+    deleteTask
 } from './data.js';
 import {
     addTaskToTable,
@@ -93,4 +97,59 @@ export const handleTaskSubmit = async (event) => {
     addTaskToTable(savedTask);
     dom.taskForm.reset();
     dom.taskStatusSelect.value = '';
+};
+
+// Elimina una tarea tanto del backend como de la visualización, cuando se ejecuta el evento asociado
+export const handleTaskDelete = async (event) => {
+    event.preventDefault();
+
+    event.stopPropagation();
+
+    if (event.target.tagName === 'BUTTON' && event.target.textContent === 'Eliminar') {
+        const row = event.target.closest('.tasks__row');
+    
+        const titleCell = row.querySelector('td:first-child');
+    
+        const descriptionCell = row.querySelector('td:nth-child(2)');
+    
+        const statusCell = row.querySelector('td:nth-child(3) .task-status');
+    
+        const userCell = row.querySelector('td:nth-child(5)');
+    
+        const taskTitle = titleCell.textContent;
+    
+        const taskDescription = descriptionCell.textContent;
+    
+        const taskStatus = statusCell.textContent;
+    
+        const userName = userCell.textContent;
+    
+        const taskToDelete = state.dbTasks.find(task =>
+            task.title === taskTitle &&
+    
+            task.description === taskDescription &&
+    
+            getStatusText(task.status) === taskStatus &&
+    
+            state.dbUsers.find(u => normalizeId(u.id) === normalizeId(task.userId))?.name === userName
+        );
+    
+        if (taskToDelete) {
+            const success = await deleteTask(taskToDelete.id);
+    
+            if (success) {
+                row.remove();
+    
+                showUserMessage('Tarea eliminada correctamente.');
+    
+                if (dom.tasksTableBody.children.length === 0) {
+                    showEmptyState();
+                }
+            } else {
+                showUserMessage('Error al eliminar la tarea.', true);
+            }
+        } else {
+            showUserMessage('No se pudo encontrar la tarea para eliminar.', true);
+        }
+    }
 };

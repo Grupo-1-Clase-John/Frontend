@@ -3,7 +3,8 @@ import {
     loadLocalData,
     handleUserSearch,
     handleTaskSubmit,
-    handleInputChange
+    handleInputChange,
+    handleTaskDelete
 } from './index.js';
 
 const {
@@ -17,6 +18,8 @@ const {
 
 userSearchForm.addEventListener('submit', handleUserSearch);
 taskForm.addEventListener('submit', handleTaskSubmit);
+
+dom.tasksTableBody.addEventListener('click', handleTaskDelete);
 
 userDocumentInput.addEventListener('input', handleInputChange);
 taskTitleInput.addEventListener('input', handleInputChange);
