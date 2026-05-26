@@ -85,12 +85,12 @@
       "createdAt": "2026-05-08T16:00:00Z"
     },
     {
-      "id": "1779830827356",
+      "id": "1779832274855",
       "userId": 3,
-      "title": "Confirmar si el codigo tiene bugs",
-      "description": "Analizar el script js y modificar si es necesario",
+      "title": "dfdfdfd",
+      "description": "fdfdfd",
       "status": "en-proceso",
-      "createdAt": "2026-05-26T21:27:07.356Z"
+      "createdAt": "2026-05-26T21:51:14.855Z"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
