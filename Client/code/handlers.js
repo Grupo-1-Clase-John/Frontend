@@ -10,6 +10,7 @@ import {
     hideUserCard,
     disableTaskForm,
     showUserMessage,
+    showEmptyState,
     showError,
     setTaskFormEditMode,
     setTaskFormCreateMode
@@ -167,35 +168,9 @@ export const handleTaskDelete = async (event) => {
 
     if (event.target.tagName === 'BUTTON' && event.target.textContent === 'Eliminar') {
         const row = event.target.closest('.tasks__row');
-    
-        const titleCell = row.querySelector('td:first-child');
-    
-        const descriptionCell = row.querySelector('td:nth-child(2)');
-    
-        const statusCell = row.querySelector('td:nth-child(3) .task-status');
-    
-        const userCell = row.querySelector('td:nth-child(5)');
-    
-        const taskTitle = titleCell.textContent;
-    
-        const taskDescription = descriptionCell.textContent;
-    
-        const taskStatus = statusCell.textContent;
-    
-        const userName = userCell.textContent;
-    
-        const taskToDelete = state.dbTasks.find(task =>
-            task.title === taskTitle &&
-    
-            task.description === taskDescription &&
-    
-            getStatusText(task.status) === taskStatus &&
-    
-            state.dbUsers.find(u => normalizeId(u.id) === normalizeId(task.userId))?.name === userName
-        );
-    
-        if (taskToDelete) {
-            const success = await deleteTask(taskToDelete.id);
+
+        if (row && row.dataset.taskId) {
+            const success = await deleteTask(row.dataset.taskId);
     
             if (success) {
                 row.remove();

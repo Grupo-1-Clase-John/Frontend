@@ -77,14 +77,6 @@
       "createdAt": "2026-05-09T10:00:00Z"
     },
     {
-      "id": "4",
-      "userId": 3,
-      "title": "Llamar a cliente",
-      "description": "Confirmar cita médica para el próximo martes",
-      "status": "pendiente",
-      "createdAt": "2026-05-12T08:00:00Z"
-    },
-    {
       "id": "5",
       "userId": 3,
       "title": "Enviar informe mensual",
@@ -93,20 +85,12 @@
       "createdAt": "2026-05-08T16:00:00Z"
     },
     {
-      "id": "KL_YDbcIkY4",
-      "userId": 2,
-      "title": "Funciona?",
-      "description": "Prueba de funcionamiento",
-      "status": "en-proceso",
-      "createdAt": "2026-05-18T14:15:02.720Z"
-    },
-    {
-      "id": "1779824908329",
+      "id": "1779830827356",
       "userId": 3,
-      "title": "gfgfgfg",
-      "description": "fggfgf",
-      "status": "pendiente",
-      "createdAt": "2026-05-26T19:48:28.329Z"
+      "title": "Confirmar si el codigo tiene bugs",
+      "description": "Analizar el script js y modificar si es necesario",
+      "status": "en-proceso",
+      "createdAt": "2026-05-26T21:27:07.356Z"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

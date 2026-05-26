@@ -11,6 +11,7 @@ export const addTaskToTable = (task) => {
 
     const row = document.createElement('tr');
     row.classList.add('tasks__row');
+    row.dataset.taskId = task.id;
 
     const statusClass = getStatusClass(task.status);
     const user = state.dbUsers.find(u => normalizeId(u.id) === normalizeId(task.userId));
@@ -59,7 +60,6 @@ export const addTaskToTable = (task) => {
     row.appendChild(titleCell);
     row.appendChild(descriptionCell);
     row.appendChild(statusCell);
-    row.appendChild(actionsCell);
     row.appendChild(userCell);
     row.appendChild(actionsCell);
 

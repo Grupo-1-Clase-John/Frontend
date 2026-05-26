@@ -24,6 +24,8 @@ document.addEventListener('task:edit', (event) => {
     handleTaskEdit(event.detail.taskId);
 });
 
+dom.tasksTableBody.addEventListener('click', handleTaskDelete);
+
 userDocumentInput.addEventListener('input', handleInputChange);
 taskTitleInput.addEventListener('input', handleInputChange);
 taskDescriptionInput.addEventListener('input', handleInputChange);
