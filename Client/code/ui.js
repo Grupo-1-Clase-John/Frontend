@@ -73,3 +73,13 @@ export const handleInputChange = (event) => {
         inputField.classList.remove('error');
     }
 };
+
+// Cambia el formulario al modo de edición de tarea.
+export const setTaskFormEditMode = () => {
+    dom.submitTaskBtn.textContent = 'Actualizar tarea';
+};
+
+// Devuelve el formulario al modo normal de registro.
+export const setTaskFormCreateMode = () => {
+    dom.submitTaskBtn.textContent = 'Registrar tarea';
+};

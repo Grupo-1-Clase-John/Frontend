@@ -165,3 +165,106 @@ export const saveTaskToBackend = async (task) => {
         return null;
     }
 };
+
+
+// Actualiza una tarea existente en el backend usando PATCH.
+export const updateTaskInBackend = async (taskId, updatedFields) => {
+    try {
+        const response = await fetch(`${apiUrl}tasks/${taskId}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(updatedFields)
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}`);
+        }
+
+        const updatedTask = await response.json();
+        showUserMessage('Tarea actualizada correctamente.');
+        return {
+            ...updatedTask,
+            id: normalizeId(updatedTask.id),
+            userId: normalizeId(updatedTask.userId)
+        };
+    } catch (error) {
+        console.warn('PATCH /tasks falló:', error);
+        showUserMessage(`Error al actualizar: ${error.message}.`, true);
+        return null;
+    }
+};
+// Elimina una tarea del estado actual y del backend o db.json según corresponda.
+export const deleteTask = async (taskId) => {
+    const normalizedTaskId = normalizeId(taskId);
+    
+    const taskIndex = state.dbTasks.findIndex(task => normalizeId(task.id) === normalizedTaskId);
+    
+    if (taskIndex === -1) {
+        showUserMessage('Tarea no encontrada para eliminar.', true);
+        return false;
+    }
+    
+    const taskToDelete = state.dbTasks[taskIndex];
+
+    try {
+        const response = await fetch(`${apiUrl}tasks/${taskToDelete.id}`, {
+            method: 'DELETE'
+        });
+    
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}`);
+        }
+    
+        state.dbTasks.splice(taskIndex, 1);
+    
+        showUserMessage('Tarea eliminada del backend.');
+    
+        return true;
+    } catch (error) {
+        console.warn('DELETE /tasks falló, intentando eliminar directamente de db.json:', error);
+    
+        const dbUrl = `${apiUrl}Server/db.json`;
+    
+        const response = await fetch(dbUrl);
+    
+        if (!response.ok) {
+            console.warn('No se pudo leer db.json para eliminar:', response.status);
+            showUserMessage(`Error al eliminar: ${error.message}.`, true);
+            return false;
+        }
+    
+        const data = await response.json();
+    
+        const updatedTasks = (Array.isArray(data.tasks) ? data.tasks : data.tasks || [])
+            .filter(task => normalizeId(task.id) !== normalizedTaskId);
+    
+        const updatedData = {
+            ...data,
+            tasks: updatedTasks
+        };
+    
+        const putResponse = await fetch(dbUrl, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(updatedData, null, 2)
+        });
+    
+        if (!putResponse.ok) {
+            console.warn('No se pudo actualizar db.json para eliminar:', putResponse.status);
+    
+            showUserMessage(`Error al eliminar: ${error.message}.`, true);
+    
+            return false;
+        }
+    
+        state.dbTasks.splice(taskIndex, 1);
+    
+        showUserMessage('Tarea eliminada directamente de db.json.');
+    
+        return true;
+    }
+};

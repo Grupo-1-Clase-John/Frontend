@@ -10,16 +10,24 @@ import {
     hideUserCard,
     disableTaskForm,
     showUserMessage,
-    showError
+    showEmptyState,
+    showError,
+    setTaskFormEditMode,
+    setTaskFormCreateMode
 } from './ui.js';
 import {
     validateUserSearch,
     validateTaskForm
 } from './validation.js';
-import { normalizeId } from './helpers.js';
+import {
+    normalizeId,
+    getStatusText
+} from './helpers.js';
 import {
     findUserByDocument,
-    saveTaskToBackend
+    saveTaskToBackend,
+    updateTaskInBackend,
+    deleteTask
 } from './data.js';
 import {
     addTaskToTable,
@@ -32,6 +40,8 @@ export const handleUserSearch = async (event) => {
     event.preventDefault();
     clearAllErrors();
     hideUserMessage();
+    state.editingTaskId = null;
+    setTaskFormCreateMode();
 
     if (!validateUserSearch()) {
         return;
@@ -59,7 +69,7 @@ export const handleUserSearch = async (event) => {
     }
 };
 
-// Procesa el envío del formulario de tarea y guarda la tarea en el backend.
+// Procesa el envío del formulario de tarea o la actualizacion y guarda la tarea en el backend.
 export const handleTaskSubmit = async (event) => {
     event.preventDefault();
     event.stopPropagation();
@@ -74,6 +84,37 @@ export const handleTaskSubmit = async (event) => {
     if (!validateTaskForm()) {
         return;
     }
+
+    if (state.editingTaskId) {
+    const updatedFields = {
+        title: dom.taskTitleInput.value.trim(),
+        description: dom.taskDescriptionInput.value.trim(),
+        status: dom.taskStatusSelect.value
+       };
+
+       const updatedTask = await updateTaskInBackend(state.editingTaskId, updatedFields);
+
+       if (!updatedTask) {
+           return;
+        }
+
+       state.dbTasks = state.dbTasks.map(task =>
+           normalizeId(task.id) === normalizeId(updatedTask.id)
+               ? {
+                   ...task,
+                   ...updatedTask,
+                   userId: normalizeId(updatedTask.userId || task.userId)
+                }
+                : task
+                );
+
+       loadUserTasks(state.currentUserId);
+       state.editingTaskId = null;
+       dom.taskForm.reset();
+       dom.taskStatusSelect.value = '';
+       setTaskFormCreateMode();
+       return;
+          }
 
     const newTask = {
         id: String(Date.now()),
@@ -93,4 +134,57 @@ export const handleTaskSubmit = async (event) => {
     addTaskToTable(savedTask);
     dom.taskForm.reset();
     dom.taskStatusSelect.value = '';
+    state.editingTaskId = null;
+    setTaskFormCreateMode();
+};
+
+// Carga los datos de una tarea en el formulario para editarla.
+export const handleTaskEdit = (taskId) => {
+    const task = state.dbTasks.find(item => normalizeId(item.id) === normalizeId(taskId));
+
+    if (!task) {
+        showUserMessage('No se encontró la tarea para editar.', true);
+        return;
+    }
+
+    state.editingTaskId = normalizeId(task.id);
+
+    dom.taskTitleInput.value = task.title;
+    dom.taskDescriptionInput.value = task.description;
+    dom.taskStatusSelect.value = task.status;
+
+    clearAllErrors();
+    hideUserMessage();
+    enableTaskForm();
+    setTaskFormEditMode();
+
+    dom.taskTitleInput.focus();
+};
+// Elimina una tarea tanto del backend como de la visualización, cuando se ejecuta el evento asociado
+export const handleTaskDelete = async (event) => {
+    event.preventDefault();
+
+    event.stopPropagation();
+
+    if (event.target.tagName === 'BUTTON' && event.target.textContent === 'Eliminar') {
+        const row = event.target.closest('.tasks__row');
+
+        if (row && row.dataset.taskId) {
+            const success = await deleteTask(row.dataset.taskId);
+    
+            if (success) {
+                row.remove();
+    
+                showUserMessage('Tarea eliminada correctamente.');
+    
+                if (dom.tasksTableBody.children.length === 0) {
+                    showEmptyState();
+                }
+            } else {
+                showUserMessage('Error al eliminar la tarea.', true);
+            }
+        } else {
+            showUserMessage('No se pudo encontrar la tarea para eliminar.', true);
+        }
+    }
 };

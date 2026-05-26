@@ -1,6 +1,6 @@
 // Normaliza un valor a una cadena minúscula sin espacios exteriores.
 export const normalizeId = (value) => {
-    return String(value || '').trim().toLowerCase();
+    return String(value || '').trim();
 };
 
 // Verifica si el valor proporcionado es un texto no vacío.

@@ -55,9 +55,9 @@
     {
       "id": "1",
       "userId": 1,
-      "title": "Revisar correo electrónico",
-      "description": "Organizar bandeja de entrada y responder mensajes pendientes",
-      "status": "pendiente",
+      "title": "Revisar correo de wsp",
+      "description": "Organizar bandeja de entrada y responder mensajes",
+      "status": "en-proceso",
       "createdAt": "2026-05-10T09:00:00Z"
     },
     {
@@ -71,18 +71,10 @@
     {
       "id": "3",
       "userId": 2,
-      "title": "Actualizar inventario",
-      "description": "Verificar stock de productos en almacén",
+      "title": "Actualizar el css",
+      "description": "darle una metodologss y script",
       "status": "completada",
       "createdAt": "2026-05-09T10:00:00Z"
-    },
-    {
-      "id": "4",
-      "userId": 3,
-      "title": "Llamar a cliente",
-      "description": "Confirmar cita médica para el próximo martes",
-      "status": "pendiente",
-      "createdAt": "2026-05-12T08:00:00Z"
     },
     {
       "id": "5",
@@ -93,12 +85,12 @@
       "createdAt": "2026-05-08T16:00:00Z"
     },
     {
-      "id": "KL_YDbcIkY4",
-      "userId": 2,
-      "title": "Funciona?",
-      "description": "Prueba de funcionamiento",
+      "id": "1779832274855",
+      "userId": 3,
+      "title": "dfdfdfd",
+      "description": "fdfdfd",
       "status": "en-proceso",
-      "createdAt": "2026-05-18T14:15:02.720Z"
+      "createdAt": "2026-05-26T21:51:14.855Z"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
