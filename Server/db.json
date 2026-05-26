@@ -71,9 +71,9 @@
     {
       "id": "3",
       "userId": 2,
-      "title": "Actualizar el html",
-      "description": "darle una metodologia bem",
-      "status": "en-proceso",
+      "title": "Actualizar el css",
+      "description": "darle una metodologss y script",
+      "status": "completada",
       "createdAt": "2026-05-09T10:00:00Z"
     },
     {

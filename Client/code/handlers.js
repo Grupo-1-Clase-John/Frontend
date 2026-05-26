@@ -25,6 +25,7 @@ import {
 import {
     findUserByDocument,
     saveTaskToBackend,
+    updateTaskInBackend,
     deleteTask
 } from './data.js';
 import {
