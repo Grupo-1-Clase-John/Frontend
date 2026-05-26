@@ -43,5 +43,6 @@ export {
 export {
     handleUserSearch,
     handleTaskSubmit,
-    handleTaskEdit
+    handleTaskEdit,
+    handleTaskDelete
 } from './code/handlers.js';

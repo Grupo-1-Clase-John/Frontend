@@ -4,7 +4,8 @@ import {
     handleUserSearch,
     handleTaskSubmit,
     handleInputChange,
-    handleTaskEdit
+    handleTaskEdit,
+    handleTaskDelete
 } from './index.js';
 
 const {
