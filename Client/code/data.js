@@ -165,3 +165,33 @@ export const saveTaskToBackend = async (task) => {
         return null;
     }
 };
+
+
+// Actualiza una tarea existente en el backend usando PATCH.
+export const updateTaskInBackend = async (taskId, updatedFields) => {
+    try {
+        const response = await fetch(`${apiUrl}tasks/${taskId}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(updatedFields)
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}`);
+        }
+
+        const updatedTask = await response.json();
+        showUserMessage('Tarea actualizada correctamente.');
+        return {
+            ...updatedTask,
+            id: normalizeId(updatedTask.id),
+            userId: normalizeId(updatedTask.userId)
+        };
+    } catch (error) {
+        console.warn('PATCH /tasks falló:', error);
+        showUserMessage(`Error al actualizar: ${error.message}.`, true);
+        return null;
+    }
+};

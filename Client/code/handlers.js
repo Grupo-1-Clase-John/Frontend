@@ -10,7 +10,9 @@ import {
     hideUserCard,
     disableTaskForm,
     showUserMessage,
-    showError
+    showError,
+    setTaskFormEditMode,
+    setTaskFormCreateMode
 } from './ui.js';
 import {
     validateUserSearch,
@@ -19,7 +21,8 @@ import {
 import { normalizeId } from './helpers.js';
 import {
     findUserByDocument,
-    saveTaskToBackend
+    saveTaskToBackend,
+    updateTaskInBackend
 } from './data.js';
 import {
     addTaskToTable,
@@ -32,6 +35,8 @@ export const handleUserSearch = async (event) => {
     event.preventDefault();
     clearAllErrors();
     hideUserMessage();
+    state.editingTaskId = null;
+    setTaskFormCreateMode();
 
     if (!validateUserSearch()) {
         return;
@@ -59,7 +64,7 @@ export const handleUserSearch = async (event) => {
     }
 };
 
-// Procesa el envío del formulario de tarea y guarda la tarea en el backend.
+// Procesa el envío del formulario de tarea o la actualizacion y guarda la tarea en el backend.
 export const handleTaskSubmit = async (event) => {
     event.preventDefault();
     event.stopPropagation();
@@ -74,6 +79,37 @@ export const handleTaskSubmit = async (event) => {
     if (!validateTaskForm()) {
         return;
     }
+
+    if (state.editingTaskId) {
+    const updatedFields = {
+        title: dom.taskTitleInput.value.trim(),
+        description: dom.taskDescriptionInput.value.trim(),
+        status: dom.taskStatusSelect.value
+       };
+
+       const updatedTask = await updateTaskInBackend(state.editingTaskId, updatedFields);
+
+       if (!updatedTask) {
+           return;
+        }
+
+       state.dbTasks = state.dbTasks.map(task =>
+           normalizeId(task.id) === normalizeId(updatedTask.id)
+               ? {
+                   ...task,
+                   ...updatedTask,
+                   userId: normalizeId(updatedTask.userId || task.userId)
+                }
+                : task
+                );
+
+       loadUserTasks(state.currentUserId);
+       state.editingTaskId = null;
+       dom.taskForm.reset();
+       dom.taskStatusSelect.value = '';
+       setTaskFormCreateMode();
+       return;
+          }
 
     const newTask = {
         id: String(Date.now()),
@@ -93,4 +129,29 @@ export const handleTaskSubmit = async (event) => {
     addTaskToTable(savedTask);
     dom.taskForm.reset();
     dom.taskStatusSelect.value = '';
+    state.editingTaskId = null;
+    setTaskFormCreateMode();
+};
+
+// Carga los datos de una tarea en el formulario para editarla.
+export const handleTaskEdit = (taskId) => {
+    const task = state.dbTasks.find(item => normalizeId(item.id) === normalizeId(taskId));
+
+    if (!task) {
+        showUserMessage('No se encontró la tarea para editar.', true);
+        return;
+    }
+
+    state.editingTaskId = normalizeId(task.id);
+
+    dom.taskTitleInput.value = task.title;
+    dom.taskDescriptionInput.value = task.description;
+    dom.taskStatusSelect.value = task.status;
+
+    clearAllErrors();
+    hideUserMessage();
+    enableTaskForm();
+    setTaskFormEditMode();
+
+    dom.taskTitleInput.focus();
 };

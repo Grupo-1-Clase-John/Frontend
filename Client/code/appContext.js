@@ -17,6 +17,7 @@ export const dom = {
     taskTitleInput: document.getElementById("taskTitle"),
     taskDescriptionInput: document.getElementById("taskDescription"),
     taskStatusSelect: document.getElementById("taskStatus"),
+    submitTaskBtn: document.getElementById("submitTaskBtn"),
     taskTitleError: document.getElementById("taskTitleError"),
     taskDescriptionError: document.getElementById("taskDescriptionError"),
     taskStatusError: document.getElementById("taskStatusError"),
@@ -26,6 +27,8 @@ export const dom = {
 
 export const state = {
     currentUserId: null,
+    editingTaskId: null, 
     dbUsers: [],
-    dbTasks: []
+    dbTasks: [],
+
 };

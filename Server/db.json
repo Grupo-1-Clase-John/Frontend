@@ -55,9 +55,9 @@
     {
       "id": "1",
       "userId": 1,
-      "title": "Revisar correo electrónico",
-      "description": "Organizar bandeja de entrada y responder mensajes pendientes",
-      "status": "pendiente",
+      "title": "Revisar correo de wsp",
+      "description": "Organizar bandeja de entrada y responder mensajes",
+      "status": "en-proceso",
       "createdAt": "2026-05-10T09:00:00Z"
     },
     {
@@ -71,9 +71,9 @@
     {
       "id": "3",
       "userId": 2,
-      "title": "Actualizar inventario",
-      "description": "Verificar stock de productos en almacén",
-      "status": "completada",
+      "title": "Actualizar el html",
+      "description": "darle una metodologia bem",
+      "status": "en-proceso",
       "createdAt": "2026-05-09T10:00:00Z"
     },
     {
