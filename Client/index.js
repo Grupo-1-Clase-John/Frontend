@@ -5,6 +5,7 @@ export {
     dom,
     state
 } from './JS/api/api.js';
+
 export {
     showError,
     clearError,
@@ -19,27 +20,32 @@ export {
     setTaskFormEditMode,
     setTaskFormCreateMode
 } from './code/ui.js';
+
 export {
     getStatusClass,
     getStatusText,
     escapeHtml,
     normalizeId
 } from './code/helpers.js';
+
 export {
     validateUserSearch,
     validateTaskForm
-} from './code/validation.js';
+} from './JS/utils/validaciones.js';
+
 export {
     findUserByDocument,
     saveTaskToBackend,
     updateTaskInBackend,
     loadLocalData
 } from './code/data.js';
+
 export {
     addTaskToTable,
     clearTasksTable,
     loadUserTasks
 } from './code/tasks.js';
+
 export {
     handleUserSearch,
     handleTaskSubmit,
