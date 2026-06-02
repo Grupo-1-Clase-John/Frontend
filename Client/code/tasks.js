@@ -33,28 +33,28 @@ export const addTaskToTable = (task) => {
     statusCell.appendChild(statusBadge);
 
     const userCell = document.createElement('td');
-     userCell.classList.add('tasks__cell');
-     userCell.textContent = userName;
+    userCell.classList.add('tasks__cell');
+    userCell.textContent = userName;
 
     const actionsCell = document.createElement('td');
-      actionsCell.classList.add('tasks__cell');
+    actionsCell.classList.add('tasks__cell');
 
     const deleteButton = document.createElement('button');
-      deleteButton.classList.add('btn', 'btn--primary', 'btn--small');
-      deleteButton.textContent = 'Eliminar';
-      actionsCell.appendChild(deleteButton);
+    deleteButton.classList.add('btn', 'btn--primary', 'btn--small');
+    deleteButton.textContent = 'Eliminar';
+    actionsCell.appendChild(deleteButton);
 
     const editButton = document.createElement('button');
-      editButton.type = 'button';
-      editButton.classList.add('btn', 'btn--primary', 'btn--small');
-      editButton.textContent = 'Editar';
-      editButton.addEventListener('click', () => {
-      document.dispatchEvent(new CustomEvent('task:edit', {
+    editButton.type = 'button';
+    editButton.classList.add('btn', 'btn--primary', 'btn--small');
+    editButton.textContent = 'Editar';
+    editButton.addEventListener('click', () => {
+    document.dispatchEvent(new CustomEvent('task:edit', {
         detail: {
             taskId: task.id
         }
         }));
-      });
+    });
     actionsCell.appendChild(editButton);
 
     row.appendChild(titleCell);
