@@ -90,31 +90,31 @@ export const handleTaskSubmit = async (event) => {
         title: dom.taskTitleInput.value.trim(),
         description: dom.taskDescriptionInput.value.trim(),
         status: dom.taskStatusSelect.value
-       };
+    };
 
-       const updatedTask = await updateTaskInBackend(state.editingTaskId, updatedFields);
+    const updatedTask = await updateTaskInBackend(state.editingTaskId, updatedFields);
 
-       if (!updatedTask) {
-           return;
+    if (!updatedTask) {
+        return;
         }
 
-       state.dbTasks = state.dbTasks.map(task =>
-           normalizeId(task.id) === normalizeId(updatedTask.id)
-               ? {
-                   ...task,
-                   ...updatedTask,
-                   userId: normalizeId(updatedTask.userId || task.userId)
+    state.dbTasks = state.dbTasks.map(task =>
+        normalizeId(task.id) === normalizeId(updatedTask.id)
+            ? {
+                ...task,
+                ...updatedTask,
+                userId: normalizeId(updatedTask.userId || task.userId)
                 }
                 : task
                 );
 
-       loadUserTasks(state.currentUserId);
-       state.editingTaskId = null;
-       dom.taskForm.reset();
-       dom.taskStatusSelect.value = '';
-       setTaskFormCreateMode();
-       return;
-          }
+    loadUserTasks(state.currentUserId);
+    state.editingTaskId = null;
+    dom.taskForm.reset();
+    dom.taskStatusSelect.value = '';
+    setTaskFormCreateMode();
+    return;
+        }
 
     const newTask = {
         id: String(Date.now()),
