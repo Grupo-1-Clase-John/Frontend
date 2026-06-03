@@ -1,3 +1,28 @@
+import { apiUrl, dom, state } from '../api/api.js';
+
+import {
+    validateUserSearch,
+    validateTaskForm
+} from '../utils/validaciones.js';
+
+import {
+    clearAllErrors,
+    hideUserMessage,
+    showUserCard,
+    enableTaskForm,
+    hideUserCard,
+    disableTaskForm,
+    showUserMessage,
+    showEmptyState,
+    showError,
+    setTaskFormEditMode,
+    setTaskFormCreateMode,
+    addTaskToTable,
+    clearTasksTable,
+    loadUserTasks
+} from '../ui/tareasUi.js';
+
+
 //DATA
 
 // Descarga usuarios y tareas desde el backend y los guarda en el estado de la aplicación.
