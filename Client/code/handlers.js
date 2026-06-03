@@ -35,6 +35,8 @@ import {
     loadUserTasks
 } from './tasks.js';
 
+//HANDLERS
+
 // Maneja la búsqueda de usuario, mostrando datos y habilitando el formulario si se encuentra el usuario.
 export const handleUserSearch = async (event) => {
     event.preventDefault();

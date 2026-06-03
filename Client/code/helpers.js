@@ -1,3 +1,5 @@
+//HELPERS
+
 // Normaliza un valor a una cadena minúscula sin espacios exteriores.
 export const normalizeId = (value) => {
     return String(value || '').trim();
