@@ -33,7 +33,7 @@ export const dom = {
 };
 
 
-// Estado global de la aplicación para almacenar información del usuario actual, tareas y datos de respaldo.
+// Estado global de la aplicación
 export const state = {
     currentUserId: null,
     editingTaskId: null, 
