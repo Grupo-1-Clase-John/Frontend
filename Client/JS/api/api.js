@@ -9,10 +9,6 @@ const PORT = 3000;
 // URL base para las solicitudes al backend
 export const apiUrl = `http://${IP_adress}:${PORT}/`;
 
-// Datos de respaldo en caso de que el backend no esté disponible
-export const FALLBACK_USERS = [];
-export const FALLBACK_TASKS = [];
-
 // Exporta el DOM y el estado global para su uso en otros módulos
 export const dom = {
     userSearchForm: document.getElementById("userSearchForm"),

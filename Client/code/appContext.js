@@ -1,8 +1,5 @@
 export const apiUrl = 'http://10.5.225.220:3000/';
 
-export const FALLBACK_USERS = [];
-export const FALLBACK_TASKS = [];
-
 export const dom = {
     userSearchForm: document.getElementById("userSearchForm"),
     userDocumentInput: document.getElementById("userDocument"),

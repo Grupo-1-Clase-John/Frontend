@@ -1,7 +1,5 @@
 export {
     apiUrl,
-    FALLBACK_USERS,
-    FALLBACK_TASKS,
     dom,
     state
 } from './JS/api/api.js';
