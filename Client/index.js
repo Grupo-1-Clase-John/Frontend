@@ -1,7 +1,5 @@
 export {
     apiUrl,
-    FALLBACK_USERS,
-    FALLBACK_TASKS,
     dom,
     state
 } from './JS/api/api.js';
@@ -26,7 +24,7 @@ export {
     getStatusText,
     escapeHtml,
     normalizeId
-} from './code/helpers.js';
+} from './JS/services/tareasService.js';
 
 export {
     validateUserSearch,
@@ -38,7 +36,7 @@ export {
     saveTaskToBackend,
     updateTaskInBackend,
     loadLocalData
-} from './code/data.js';
+} from './JS/services/tareasService.js';
 
 export {
     addTaskToTable,
@@ -51,4 +49,4 @@ export {
     handleTaskSubmit,
     handleTaskEdit,
     handleTaskDelete
-} from './code/handlers.js';
+} from './JS/services/tareasService.js';
