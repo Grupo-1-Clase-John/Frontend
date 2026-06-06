@@ -89,5 +89,5 @@ export const setTaskFormEditMode = () => {
  * @returns {void}
  */
 export const setTaskFormCreateMode = () => {
-    dom.submitTaskBtn.textContent = 'Registrar tarea'; // Cambia la etiqueta del botón
+    dom.submitTaskBtn.textContent = 'Registrar tarea'; // Cambia la etiqueta del botón submit.
 };

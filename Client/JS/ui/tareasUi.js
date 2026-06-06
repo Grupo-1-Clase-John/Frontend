@@ -36,7 +36,7 @@ export {
     handleInputChange,    // Limpia el error de un INPUT al cambiar su valor.
     setTaskFormEditMode,  // Cambia el botón a "Actualizar tarea"
     setTaskFormCreateMode // Cambia el botón a "Registrar tarea"
-} from './taskFormUi.js';
+} from './tasksFormUi.js';
 
 // Re-exporta la UI de la tabla de tareas (estado vacío, filas, carga filtrada).
 export {
@@ -45,4 +45,4 @@ export {
     addTaskToTable,  // Agrega una fila a la tabla con los datos de una tarea.
     clearTasksTable, // Vacía la tabla y muestra el estado vacío.
     loadUserTasks    // Filtra y muestra las tareas del usuario indicado.
-} from './tasksTableUi.js';
+} from './taskTableUi.js';
