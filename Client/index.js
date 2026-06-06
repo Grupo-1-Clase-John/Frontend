@@ -17,7 +17,7 @@ export {
     handleInputChange,
     setTaskFormEditMode,
     setTaskFormCreateMode
-} from './code/ui.js';
+} from './JS/ui/tareasUi.js';
 
 export {
     getStatusClass,
@@ -42,7 +42,7 @@ export {
     addTaskToTable,
     clearTasksTable,
     loadUserTasks
-} from './code/tasks.js';
+} from './JS/ui/tareasUi.js';
 
 export {
     handleUserSearch,
