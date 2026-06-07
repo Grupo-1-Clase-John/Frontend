@@ -91,6 +91,22 @@
       "description": "fdfdfd",
       "status": "en-proceso",
       "createdAt": "2026-05-26T21:51:14.855Z"
+    },
+    {
+      "id": "d5hFEjjIWbM",
+      "userId": 2,
+      "title": "2",
+      "description": "3223",
+      "status": "pendiente",
+      "createdAt": "2026-06-06T08:39:38.649Z"
+    },
+    {
+      "id": "IVNns5M8UMY",
+      "userId": 3,
+      "title": "323",
+      "description": "3323",
+      "status": "completada",
+      "createdAt": "2026-06-06T08:39:50.580Z"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
