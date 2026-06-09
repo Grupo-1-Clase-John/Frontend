@@ -202,18 +202,11 @@ export const handleUserSearch = async (event) => {
         hideUserMessage();
         showUserCard();
         enableTaskForm();
-        if (dom.taskFilterUserSelect) {
-            dom.taskFilterUserSelect.value = state.currentUserId;
-        }
-        loadFilteredTasks({
-            userId: state.currentUserId,
-            status: dom.taskFilterStatusSelect ? dom.taskFilterStatusSelect.value : ''
-        });
+        // No alteramos los filtros de tareas: la búsqueda de usuario es independiente.
     } else {
         state.currentUserId = null;
         hideUserCard();
         disableTaskForm();
-        clearTasksTable();
         showUserMessage('Usuario no encontrado en el sistema', true);
     }
 };
