@@ -568,6 +568,5 @@ button {
     .tasks__subtitle,
     .user-card__item {
         font-size: var(--font-size-sm);
-        
     }
 }

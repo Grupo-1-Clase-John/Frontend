@@ -107,6 +107,78 @@
       "description": "3323",
       "status": "completada",
       "createdAt": "2026-06-06T08:39:50.580Z"
+    },
+    {
+      "id": "O0AeOVtb6rY",
+      "userId": 1,
+      "title": "wrw",
+      "description": "rwerrwrw",
+      "status": "en-proceso",
+      "createdAt": "2026-06-09T20:48:16.531Z"
+    },
+    {
+      "id": "EfJ_Aon6XdQ",
+      "userId": 5,
+      "title": "gegf",
+      "description": "gdgfgd",
+      "status": "completada",
+      "createdAt": "2026-06-09T20:48:56.627Z"
+    },
+    {
+      "id": "O60EOm5rIJA",
+      "userId": 2,
+      "title": "222",
+      "description": "22222",
+      "status": "pendiente",
+      "createdAt": "2026-06-09T20:57:20.417Z"
+    },
+    {
+      "id": "w6SRVB8h_Rk",
+      "userId": 2,
+      "title": "34553",
+      "description": "35353",
+      "status": "completada",
+      "createdAt": "2026-06-09T20:57:30.841Z"
+    },
+    {
+      "id": "rOVzMws_d3k",
+      "userId": 3,
+      "title": "23232",
+      "description": "23232323",
+      "status": "pendiente",
+      "createdAt": "2026-06-09T20:58:19.065Z"
+    },
+    {
+      "id": "gQsOVgdYNeM",
+      "userId": 2,
+      "title": "wffwf",
+      "description": "wfffwf",
+      "status": "completada",
+      "createdAt": "2026-06-09T20:59:12.593Z"
+    },
+    {
+      "id": "EQbvD1RdeKc",
+      "userId": 2,
+      "title": "23232",
+      "description": "232323232",
+      "status": "pendiente",
+      "createdAt": "2026-06-09T20:59:35.488Z"
+    },
+    {
+      "id": "gKpJbrtidYc",
+      "userId": 3,
+      "title": "erere",
+      "description": "erereere",
+      "status": "pendiente",
+      "createdAt": "2026-06-09T20:59:56.368Z"
+    },
+    {
+      "id": "uY5PHSITSN4",
+      "userId": 3,
+      "title": "35535",
+      "description": "535353",
+      "status": "pendiente",
+      "createdAt": "2026-06-09T21:00:18.528Z"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
