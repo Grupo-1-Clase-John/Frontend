@@ -1,6 +1,9 @@
 // api.js - Define constantes y estado global para la aplicación
 
-import { IP_adress, PORT } from "./IP.js";
+import {
+    IP_adress,
+    PORT
+} from "./IP.js";
 
 // URL base para las solicitudes al backend
 export const apiUrl = `http://${IP_adress}:${PORT}/`;
@@ -25,7 +28,8 @@ export const dom = {
     taskDescriptionError: document.getElementById("taskDescriptionError"),
     taskStatusError: document.getElementById("taskStatusError"),
     tasksTableBody: document.getElementById("tasksTableBody"),
-    tasksEmptyState: document.getElementById("tasksEmptyState")
+    tasksEmptyState: document.getElementById("tasksEmptyState"),
+    exportTasksBtn: document.getElementById("exportTasksBtn"),
 };
 
 

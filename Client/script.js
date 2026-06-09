@@ -6,7 +6,8 @@ import {
     handleTaskSubmit,
     handleInputChange,
     handleTaskEdit,
-    handleTaskDelete
+    handleTaskDelete,
+    exportTasks
 } from './index.js';
 
 const {
@@ -15,7 +16,9 @@ const {
     taskForm,
     taskTitleInput,
     taskDescriptionInput,
-    taskStatusSelect
+    taskStatusSelect,
+    tasksTableBody,
+    exportTasksBtn
 } = dom;
 
 userSearchForm.addEventListener('submit', handleUserSearch);
@@ -26,6 +29,8 @@ document.addEventListener('task:edit', (event) => {
 });
 
 dom.tasksTableBody.addEventListener('click', handleTaskDelete);
+
+dom.exportTasksBtn.addEventListener('click', exportTasks);
 
 userDocumentInput.addEventListener('input', handleInputChange);
 taskTitleInput.addEventListener('input', handleInputChange);
