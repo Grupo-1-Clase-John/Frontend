@@ -27,6 +27,14 @@ export {
 } from './JS/services/tareasService.js';
 
 export {
+    showExportTasksButton
+} from './JS/ui/exportTasksUi.js';
+
+export {
+    exportTasks
+} from './JS/services/exportTasks.js';
+
+export {
     validateUserSearch,
     validateTaskForm
 } from './JS/utils/validaciones.js';

@@ -22,6 +22,10 @@ import {
     loadUserTasks
 } from '../ui/tareasUi.js';
 
+import {
+    showExportTasksButton
+} from '../ui/exportTasksUi.js';
+
 
 //DATA
 
@@ -202,6 +206,7 @@ export const handleUserSearch = async (event) => {
         showUserCard();
         enableTaskForm();
         loadUserTasks(state.currentUserId);
+        showExportTasksButton(getUserTasks(state.currentUserId));
     } else {
         state.currentUserId = null;
         hideUserCard();
