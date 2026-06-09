@@ -20,6 +20,8 @@ export const dom = {
     taskTitleInput: document.getElementById("taskTitle"),
     taskDescriptionInput: document.getElementById("taskDescription"),
     taskStatusSelect: document.getElementById("taskStatus"),
+    taskFilterUserSelect: document.getElementById("taskFilterUser"),
+    taskFilterStatusSelect: document.getElementById("taskFilterStatus"),
     submitTaskBtn: document.getElementById("submitTaskBtn"),
     taskTitleError: document.getElementById("taskTitleError"),
     taskDescriptionError: document.getElementById("taskDescriptionError"),

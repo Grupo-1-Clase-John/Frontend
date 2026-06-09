@@ -120,23 +120,42 @@ export const clearTasksTable = () => {
 };
 
 /**
- * Carga en la tabla las tareas asociadas al usuario indicado.
- * Acepta variantes del nombre de la propiedad de relación (userId, user_id, id_usuario) 
- * @param {string|number} userId Identificador del usuario para las tareas que se quieran mostrar.
+ * Carga en la tabla las tareas filtradas por usuario y/o estado.
+ * @param {Object} filters Opciones de filtrado.
+ * @param {string|number} [filters.userId] Identificador del usuario.
+ * @param {string} [filters.status] Estado de la tarea ('pendiente', 'en-proceso', 'completada').
  * @returns {void}
  */
-export const loadUserTasks = (userId) => {
-    clearTasksTable(); // Limpia la tabla antes de cargar.
-    const userTasks = state.dbTasks.filter(task =>      // Filtra por cualquiera de los nombres del campo:
-        normalizeId(task.userId) === normalizeId(userId) ||
-        normalizeId(task.user_id) === normalizeId(userId) ||
-        normalizeId(task.id_usuario) === normalizeId(userId)
-    );
+export const loadFilteredTasks = ({ userId = '', status = '' } = {}) => {
+    clearTasksTable();
 
-    if (userTasks.length === 0) { // Si el usuario no tiene tareas muestra vacío y termina.
-        showEmptyState();       
+    const filteredTasks = state.dbTasks.filter(task => {
+        const matchesUser = !userId ||
+            normalizeId(task.userId) === normalizeId(userId) ||
+            normalizeId(task.user_id) === normalizeId(userId) ||
+            normalizeId(task.id_usuario) === normalizeId(userId);
+
+        const matchesStatus = !status || normalizeId(task.status) === normalizeId(status);
+
+        return matchesUser && matchesStatus;
+    });
+
+    if (filteredTasks.length === 0) {
+        showEmptyState();
+        return;
     }
 
-    hideEmptyState();                                // Hay tareas: oculta el mensaje vacío.
-    userTasks.forEach(task => addTaskToTable(task));  
+    hideEmptyState();
+    filteredTasks.forEach(task => addTaskToTable(task));
+};
+
+/**
+ * Carga en la tabla las tareas asociadas al usuario indicado.
+ * Acepta variantes del nombre de la propiedad de relación (userId, user_id, id_usuario)
+ * @param {string|number} userId Identificador del usuario para las tareas que se quieran mostrar.
+ * @param {string} [status] Estado de la tarea para combinar filtros.
+ * @returns {void}
+ */
+export const loadUserTasks = (userId, status = '') => {
+    loadFilteredTasks({ userId, status });
 };

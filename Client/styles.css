@@ -423,6 +423,18 @@ button {
     margin-bottom: var(--spacing-lg);
 }
 
+.tasks__filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-sm);
+}
+
+.tasks__filters .form__group {
+    min-width: 220px;
+    flex: 1;
+}
+
 .tasks__subtitle {
     margin-top: var(--spacing-xs);
     color: var(--color-text-secondary);

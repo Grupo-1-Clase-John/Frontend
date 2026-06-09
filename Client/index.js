@@ -41,6 +41,7 @@ export {
 export {
     addTaskToTable,
     clearTasksTable,
+    loadFilteredTasks,
     loadUserTasks
 } from './JS/ui/tareasUi.js';
 

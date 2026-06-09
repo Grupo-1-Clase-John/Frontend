@@ -107,6 +107,38 @@
       "description": "3323",
       "status": "completada",
       "createdAt": "2026-06-06T08:39:50.580Z"
+    },
+    {
+      "id": "v2FSrIKC6SU",
+      "userId": 10,
+      "title": "organizar la casa",
+      "description": "con la escoba y el trapero, lavar la verja",
+      "status": "en-proceso",
+      "createdAt": "2026-06-09T20:37:29.214Z"
+    },
+    {
+      "id": "VHL1l7nYR5U",
+      "userId": 8,
+      "title": "limpiar el techo",
+      "description": "montarse con cuidado y verificar que no haya goteras",
+      "status": "completada",
+      "createdAt": "2026-06-09T20:38:00.039Z"
+    },
+    {
+      "id": "zyfP8ya0VPE",
+      "userId": 7,
+      "title": "ir a la tienda",
+      "description": "comprar el mercado donde gollo",
+      "status": "pendiente",
+      "createdAt": "2026-06-09T20:38:17.847Z"
+    },
+    {
+      "id": "elVzbx-92fA",
+      "userId": 1,
+      "title": "agendar las tareas",
+      "description": "con cuidado corroborar el agendamiento de tareas",
+      "status": "pendiente",
+      "createdAt": "2026-06-09T20:39:09.273Z"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

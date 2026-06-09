@@ -106,8 +106,28 @@
             <section class="tasks tasks--panel">
                 <div class="tasks__card card">
                     <div class="tasks__header">
-                        <h2 class="card__title">Tareas registradas</h2>
-                        <p class="tasks__subtitle">Las tareas aparecen aquí una debajo de otra</p>
+                        <div>
+                            <h2 class="card__title">Tareas registradas</h2>
+                            <p class="tasks__subtitle">Las tareas aparecen aquí una debajo de otra</p>
+                        </div>
+                        <div class="tasks__filters">
+                            <div class="form__group">
+                                <label for="taskFilterUser" class="form__label">Filtrar por usuario</label>
+                                <select id="taskFilterUser" class="form__input">
+                                    <option value="">Todos los usuarios</option>
+                                </select>
+                            </div>
+
+                            <div class="form__group">
+                                <label for="taskFilterStatus" class="form__label">Filtrar por estado</label>
+                                <select id="taskFilterStatus" class="form__input">
+                                    <option value="">Todos los estados</option>
+                                    <option value="pendiente">Pendiente</option>
+                                    <option value="en-proceso">En proceso</option>
+                                    <option value="completada">Completada</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="tasks__table-wrapper">

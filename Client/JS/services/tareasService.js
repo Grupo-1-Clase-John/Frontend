@@ -19,6 +19,7 @@ import {
     setTaskFormCreateMode,
     addTaskToTable,
     clearTasksTable,
+    loadFilteredTasks,
     loadUserTasks
 } from '../ui/tareasUi.js';
 
@@ -201,7 +202,13 @@ export const handleUserSearch = async (event) => {
         hideUserMessage();
         showUserCard();
         enableTaskForm();
-        loadUserTasks(state.currentUserId);
+        if (dom.taskFilterUserSelect) {
+            dom.taskFilterUserSelect.value = state.currentUserId;
+        }
+        loadFilteredTasks({
+            userId: state.currentUserId,
+            status: dom.taskFilterStatusSelect ? dom.taskFilterStatusSelect.value : ''
+        });
     } else {
         state.currentUserId = null;
         hideUserCard();
@@ -250,7 +257,10 @@ export const handleTaskSubmit = async (event) => {
                 : task
                 );
 
-    loadUserTasks(state.currentUserId);
+    loadFilteredTasks({
+        userId: dom.taskFilterUserSelect ? dom.taskFilterUserSelect.value : '',
+        status: dom.taskFilterStatusSelect ? dom.taskFilterStatusSelect.value : ''
+    });
     state.editingTaskId = null;
     dom.taskForm.reset();
     dom.taskStatusSelect.value = '';
@@ -273,7 +283,10 @@ export const handleTaskSubmit = async (event) => {
     }
 
     state.dbTasks.push(savedTask);
-    addTaskToTable(savedTask);
+    loadFilteredTasks({
+        userId: dom.taskFilterUserSelect ? dom.taskFilterUserSelect.value : '',
+        status: dom.taskFilterStatusSelect ? dom.taskFilterStatusSelect.value : ''
+    });
     dom.taskForm.reset();
     dom.taskStatusSelect.value = '';
     state.editingTaskId = null;
