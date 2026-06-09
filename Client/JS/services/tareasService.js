@@ -19,8 +19,7 @@ import {
     setTaskFormCreateMode,
     addTaskToTable,
     clearTasksTable,
-    loadFilteredTasks,
-    loadUserTasks
+    loadFilteredTasks
 } from '../ui/tareasUi.js';
 
 
@@ -202,7 +201,6 @@ export const handleUserSearch = async (event) => {
         hideUserMessage();
         showUserCard();
         enableTaskForm();
-        // No alteramos los filtros de tareas: la búsqueda de usuario es independiente.
     } else {
         state.currentUserId = null;
         hideUserCard();

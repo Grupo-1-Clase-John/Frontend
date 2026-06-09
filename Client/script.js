@@ -8,6 +8,7 @@ import {
     handleInputChange,
     handleTaskEdit,
     handleTaskDelete,
+    exportTasks,
     loadFilteredTasks
 } from './index.js';
 
@@ -18,6 +19,8 @@ const {
     taskTitleInput,
     taskDescriptionInput,
     taskStatusSelect,
+    tasksTableBody,
+    exportTasksBtn,
     taskFilterUserSelect,
     taskFilterStatusSelect
 } = dom;
@@ -49,6 +52,8 @@ document.addEventListener('task:edit', (event) => {
 });
 
 dom.tasksTableBody.addEventListener('click', handleTaskDelete);
+
+dom.exportTasksBtn.addEventListener('click', exportTasks);
 
 userDocumentInput.addEventListener('input', handleInputChange);
 taskTitleInput.addEventListener('input', handleInputChange);
