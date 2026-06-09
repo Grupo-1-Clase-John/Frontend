@@ -1,10 +1,6 @@
 // api.js - Define constantes y estado global para la aplicación
 
-// Dirección IP del servidor backend (ajustar según sea necesario)
-const IP_adress = `192.168.128.7`;
-
-// Puerto del servidor backend (ajustar según sea necesario)
-const PORT = 3007;
+import { IP_adress, PORT } from "./IP.js";
 
 // URL base para las solicitudes al backend
 export const apiUrl = `http://${IP_adress}:${PORT}/`;
