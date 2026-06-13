@@ -16,7 +16,8 @@ export {
     disableTaskForm,
     handleInputChange,
     setTaskFormEditMode,
-    setTaskFormCreateMode
+    setTaskFormCreateMode,
+    showNotification
 } from './JS/ui/tareasUi.js';
 
 export {

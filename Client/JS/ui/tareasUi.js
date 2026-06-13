@@ -16,6 +16,8 @@
  *   - Para el estado y errores del formulario de tareas
  *   tasksTableUi.js:
  *   - Para renderizado de la tabla de tareas
+ *   notificationsUi.js:
+ *   - Para notificaciones tipo toast (éxito, error, información).
  */
 
 // Re-exportar UI de búsqueda de usuario (tarjeta de datos + mensajes).
@@ -46,3 +48,8 @@ export {
     clearTasksTable, // Vacía la tabla y muestra el estado vacío.
     loadUserTasks    // Filtra y muestra las tareas del usuario indicado.
 } from './taskTableUi.js';
+
+// Re-exporta UI de notificaciones (toast de éxito, error, información).
+export {
+    showNotification // Muestra notificación tipo toast autodescartable.
+} from './notificationsUi.js';

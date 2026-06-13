@@ -19,7 +19,8 @@ import {
     setTaskFormCreateMode,
     addTaskToTable,
     clearTasksTable,
-    loadUserTasks
+    loadUserTasks,
+    showNotification
 } from '../ui/tareasUi.js';
 
 import {
@@ -62,6 +63,7 @@ export const loadLocalData = async () => {
         console.warn('No se pudo cargar datos desde el backend:', error);
         state.dbUsers = [];
         state.dbTasks = [];
+        showNotification('No se pudo conectar con el servidor. Verifica que el backend este activo.', 'error');
         showUserMessage('No se pudo conectar con el servidor. Verifica que el backend este activo e intenta nuevamente.', true);
     }
 };
@@ -103,6 +105,7 @@ export const saveTaskToBackend = async (task) => {
         }
 
         const saved = await response.json();
+        showNotification('Tarea guardada correctamente.', 'success');
         showUserMessage('Tarea guardada en el backend.');
         return {
             ...task,
@@ -111,6 +114,7 @@ export const saveTaskToBackend = async (task) => {
         };
     } catch (error) {
         console.warn('POST /tasks falló:', error);
+        showNotification('No se pudo guardar la tarea. Verifica la conexion con el servidor.', 'error');
         showUserMessage(`No se pudo guardar la tarea. Verifica la conexion con el servidor e intenta nuevamente. Detalle: ${error.message}.`, true);
         return null;
     }
@@ -133,6 +137,7 @@ export const updateTaskInBackend = async (taskId, updatedFields) => {
         }
 
         const updatedTask = await response.json();
+        showNotification('Tarea actualizada correctamente.', 'success');
         showUserMessage('Tarea actualizada correctamente.');
         return {
             ...updatedTask,
@@ -141,6 +146,7 @@ export const updateTaskInBackend = async (taskId, updatedFields) => {
         };
     } catch (error) {
         console.warn('PATCH /tasks falló:', error);
+        showNotification('No se pudo actualizar la tarea. Verifica que el servidor este disponible.', 'error');
         showUserMessage(`No se pudo actualizar la tarea. Verifica que el servidor este disponible e intenta nuevamente. Detalle: ${error.message}.`, true);
         return null;
     }
@@ -152,6 +158,7 @@ export const deleteTask = async (taskId) => {
     const taskIndex = state.dbTasks.findIndex(task => normalizeId(task.id) === normalizedTaskId);
     
     if (taskIndex === -1) {
+        showNotification('Tarea no encontrada para eliminar.', 'error');
         showUserMessage('Tarea no encontrada para eliminar.', true);
         return false;
     }
@@ -169,11 +176,13 @@ export const deleteTask = async (taskId) => {
     
         state.dbTasks.splice(taskIndex, 1);
     
+        showNotification('Tarea eliminada correctamente.', 'success');
         showUserMessage('Tarea eliminada del backend.');
     
         return true;
     } catch (error) {
         console.warn('DELETE /tasks falló:', error);
+        showNotification('No se pudo eliminar la tarea. Verifica que el servidor este disponible.', 'error');
         showUserMessage(`No se pudo eliminar la tarea. Verifica que el servidor este disponible e intenta nuevamente. Detalle: ${error.message}.`, true);
         return false;
     }
@@ -207,11 +216,13 @@ export const handleUserSearch = async (event) => {
         enableTaskForm();
         loadUserTasks(state.currentUserId);
         showExportTasksButton(getUserTasks(state.currentUserId));
+        showNotification(`Usuario ${user.name} encontrado.`, 'success');
     } else {
         state.currentUserId = null;
         hideUserCard();
         disableTaskForm();
         clearTasksTable();
+        showNotification('Usuario no encontrado en el sistema', 'error');
         showUserMessage('Usuario no encontrado en el sistema', true);
     }
 };
@@ -290,11 +301,13 @@ export const handleTaskEdit = (taskId) => {
     const task = state.dbTasks.find(item => normalizeId(item.id) === normalizeId(taskId));
 
     if (!task) {
+        showNotification('No se encontró la tarea para editar.', 'error');
         showUserMessage('No se encontró la tarea para editar.', true);
         return;
     }
 
     state.editingTaskId = normalizeId(task.id);
+    showNotification('Modo edición activado. Modifica los campos y actualiza.', 'info');
 
     dom.taskTitleInput.value = task.title;
     dom.taskDescriptionInput.value = task.description;
@@ -322,15 +335,18 @@ export const handleTaskDelete = async (event) => {
             if (success) {
                 row.remove();
     
+                showNotification('Tarea eliminada correctamente.', 'success');
                 showUserMessage('Tarea eliminada correctamente.');
     
                 if (dom.tasksTableBody.children.length === 0) {
                     showEmptyState();
                 }
             } else {
+                showNotification('Error al eliminar la tarea.', 'error');
                 showUserMessage('Error al eliminar la tarea.', true);
             }
         } else {
+            showNotification('No se pudo encontrar la tarea para eliminar.', 'error');
             showUserMessage('No se pudo encontrar la tarea para eliminar.', true);
         }
     }
