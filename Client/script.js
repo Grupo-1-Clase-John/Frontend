@@ -7,6 +7,8 @@ import {
     handleInputChange,
     handleTaskEdit,
     handleTaskDelete,
+    handleSortChange,
+    handleFilterChange,
     exportTasks
 } from './index.js';
 
@@ -36,6 +38,9 @@ userDocumentInput.addEventListener('input', handleInputChange);
 taskTitleInput.addEventListener('input', handleInputChange);
 taskDescriptionInput.addEventListener('input', handleInputChange);
 taskStatusSelect.addEventListener('change', handleInputChange);
+
+dom.sortTasksSelect.addEventListener('change', handleSortChange);
+dom.statusFilterSelect.addEventListener('change', handleFilterChange);
 
 document.addEventListener('DOMContentLoaded', async () => {
     console.log('DOM completamente cargado');

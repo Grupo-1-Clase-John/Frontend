@@ -16,6 +16,10 @@
  *   - Para el estado y errores del formulario de tareas
  *   tasksTableUi.js:
  *   - Para renderizado de la tabla de tareas
+ *   statusFilterUi.js:
+ *   - Para filtro por estado (Pendiente, En proceso, Completada)
+ *   sortTasksUi.js:
+ *   - Para ordenamiento (por fecha / nombre), visible solo con filtro activo
  *   notificationsUi.js:
  *   - Para notificaciones tipo toast (éxito, error, información).
  */
@@ -53,3 +57,19 @@ export {
 export {
     showNotification // Muestra notificación tipo toast autodescartable.
 } from './notificationsUi.js';
+
+// Re-exporta UI de filtro por estado (control de visibilidad y select).
+export {
+    showFilterControl, // Muestra el control de filtro por estado.
+    hideFilterControl, // Oculta el control de filtro por estado.
+    getFilterValue,    // Obtiene el valor del select de filtro.
+    setFilterValue     // Asigna el valor del select de filtro.
+} from './statusFilterUi.js';
+
+// Re-exporta UI de ordenamiento de tareas (control de visibilidad y select).
+export {
+    showSortControl, // Muestra el control de ordenamiento.
+    hideSortControl, // Oculta el control de ordenamiento.
+    getSortValue,    // Obtiene el valor del select de ordenamiento.
+    setSortValue     // Asigna el valor del select de ordenamiento.
+} from './sortTasksUi.js';

@@ -30,6 +30,8 @@ export const dom = {
     tasksTableBody: document.getElementById("tasksTableBody"),
     tasksEmptyState: document.getElementById("tasksEmptyState"),
     exportTasksBtn: document.getElementById("exportTasksBtn"),
+    sortTasksSelect: document.getElementById("sortTasks"),
+    statusFilterSelect: document.getElementById("statusFilter"),
 };
 
 
@@ -39,4 +41,6 @@ export const state = {
     editingTaskId: null, 
     dbUsers: [],
     dbTasks: [],
+    sortCriteria: '',
+    statusFilter: '',
 };

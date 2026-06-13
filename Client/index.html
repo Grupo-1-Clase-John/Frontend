@@ -106,8 +106,31 @@
             <section class="tasks tasks--panel">
                 <div class="tasks__card card">
                     <div class="tasks__header">
-                        <h2 class="card__title">Tareas registradas</h2>
-                        <p class="tasks__subtitle">Las tareas aparecen aquí una debajo de otra</p>
+                        <div>
+                            <h2 class="card__title">Tareas registradas</h2>
+                            <p class="tasks__subtitle">Las tareas aparecen aquí una debajo de otra</p>
+                        </div>
+                        <div class="tasks__controls">
+                            <div class="tasks__filter hidden" id="statusFilterContainer">
+                                <label for="statusFilter" class="form__label">Estado:</label>
+                                <select id="statusFilter" class="sort__select">
+                                    <option value="">Todas</option>
+                                    <option value="pendiente">Pendiente</option>
+                                    <option value="en-proceso">En proceso</option>
+                                    <option value="completada">Completada</option>
+                                </select>
+                            </div>
+                            <div class="tasks__sort hidden" id="tasksSortContainer">
+                                <label for="sortTasks" class="form__label">Ordenar por:</label>
+                                <select id="sortTasks" class="sort__select">
+                                    <option value="">Selecciona...</option>
+                                    <option value="date-desc">Fecha (más reciente)</option>
+                                    <option value="date-asc">Fecha (más antiguo)</option>
+                                    <option value="title-asc">Nombre (A-Z)</option>
+                                    <option value="title-desc">Nombre (Z-A)</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="tasks__table-wrapper">

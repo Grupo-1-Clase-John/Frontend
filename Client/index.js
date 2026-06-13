@@ -57,5 +57,20 @@ export {
     handleUserSearch,
     handleTaskSubmit,
     handleTaskEdit,
-    handleTaskDelete
+    handleTaskDelete,
+    handleSortChange,
+    handleFilterChange,
+    sortTasks,
+    filterTasks
 } from './JS/services/tareasService.js';
+
+export {
+    showSortControl,
+    hideSortControl,
+    getSortValue,
+    setSortValue,
+    showFilterControl,
+    hideFilterControl,
+    getFilterValue,
+    setFilterValue
+} from './JS/ui/tareasUi.js';

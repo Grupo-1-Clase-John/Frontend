@@ -20,7 +20,11 @@ import {
     addTaskToTable,
     clearTasksTable,
     loadUserTasks,
-    showNotification
+    showNotification,
+    showSortControl,
+    hideSortControl,
+    showFilterControl,
+    hideFilterControl
 } from '../ui/tareasUi.js';
 
 import {
@@ -211,9 +215,16 @@ export const handleUserSearch = async (event) => {
         dom.userDocumentDisplay.textContent = user.id;
         dom.userEmailDisplay.textContent = user.email;
 
+        state.statusFilter = '';                       // Resetea filtro y sort al buscar un nuevo usuario.
+        state.sortCriteria = '';
+        dom.statusFilterSelect.value = '';
+        dom.sortTasksSelect.value = '';
+
         hideUserMessage();
         showUserCard();
         enableTaskForm();
+        showFilterControl();
+        hideSortControl();
         loadUserTasks(state.currentUserId);
         showExportTasksButton(getUserTasks(state.currentUserId));
         showNotification(`Usuario ${user.name} encontrado.`, 'success');
@@ -222,6 +233,8 @@ export const handleUserSearch = async (event) => {
         hideUserCard();
         disableTaskForm();
         clearTasksTable();
+        hideFilterControl();
+        hideSortControl();
         showNotification('Usuario no encontrado en el sistema', 'error');
         showUserMessage('Usuario no encontrado en el sistema', true);
     }
@@ -349,6 +362,62 @@ export const handleTaskDelete = async (event) => {
             showNotification('No se pudo encontrar la tarea para eliminar.', 'error');
             showUserMessage('No se pudo encontrar la tarea para eliminar.', true);
         }
+    }
+};
+
+// Ordena un array de tareas según el criterio indicado.
+export const sortTasks = (tasks, criteria) => {
+    const sorted = [...tasks];
+
+    switch (criteria) {
+        case 'date-desc':
+            sorted.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+            break;
+        case 'date-asc':
+            sorted.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+            break;
+        case 'title-asc':
+            sorted.sort((a, b) => a.title.localeCompare(b.title));
+            break;
+        case 'title-desc':
+            sorted.sort((a, b) => b.title.localeCompare(a.title));
+            break;
+        default:
+            break;
+    }
+
+    return sorted;
+};
+
+// Filtra un array de tareas por estado; si no hay estado devuelve el array sin cambios.
+export const filterTasks = (tasks, status) => {
+    if (!status) return tasks;
+    return tasks.filter(task => normalizeId(task.status) === normalizeId(status));
+};
+
+// Maneja el cambio de filtro por estado, muestra/oculta el control de orden y recarga tareas.
+export const handleFilterChange = (event) => {
+    state.statusFilter = event.target.value;
+
+    if (state.statusFilter) {
+        showSortControl();
+    } else {
+        state.sortCriteria = '';
+        dom.sortTasksSelect.value = '';
+        hideSortControl();
+    }
+
+    if (state.currentUserId) {
+        loadUserTasks(state.currentUserId);
+    }
+};
+
+// Maneja el cambio de criterio de ordenamiento y recarga las tareas del usuario actual.
+export const handleSortChange = (event) => {
+    state.sortCriteria = event.target.value;
+
+    if (state.currentUserId) {
+        loadUserTasks(state.currentUserId);
     }
 };
 
