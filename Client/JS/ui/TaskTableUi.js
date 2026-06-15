@@ -21,13 +21,16 @@
  */
 
 import { dom, state } from '../api/api.js';
+//Dependencia circular:
+//   tareasService.js - tareasUi.js - TaskTableUi.js - tareasService.js
+// Ahora se importa desde helpers.js en vez de tareasService.js
 import {
     getStatusClass,
     getStatusText,
     escapeHtml,
     normalizeId,
     filterTasks
-} from '../services/tareasService.js';
+} from '../utils/helpers.js';
 
 import {
     showExportTasksButton

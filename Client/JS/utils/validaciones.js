@@ -2,10 +2,13 @@ import {
     dom
 } from '../api/api.js';
 
+//Hola Cambio de import para romper dependencia circular:
+//   tareasService.js -> tareasUi.js -> TaskTableUi.js -> tareasService.js
+// Ahora importa desde helpers.js en vez de tareasService.js
 import {
     normalizeId,
     isValidInput
-} from '../services/tareasService.js';
+} from './helpers.js';
 
 import {
     showError,
