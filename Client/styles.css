@@ -486,6 +486,49 @@ button {
     background: #1e293b;
     color: var(--color-text-primary);
     padding: var(--spacing-md);
+.tasks__filters {
+    margin-bottom: var(--spacing-lg);
+}
+
+.filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+    align-items: end;
+}
+
+.filters__group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+    min-width: 180px;
+}
+
+.filters__label {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+}
+
+.filters__select {
+    width: 100%;
+    padding: calc(var(--spacing-sm) + 0.2rem) var(--spacing-md);
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(148, 163, 184, 0.24);
+    background: rgba(15, 23, 42, 0.8);
+    color: var(--color-text-primary);
+    cursor: pointer;
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.filters__select:hover {
+    border-color: rgba(148, 163, 184, 0.4);
+}
+
+.filters__select:focus {
+    outline: none;
+    border-color: rgba(79, 70, 229, 0.9);
+    box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.16);
 }
 
 .tasks__table-wrapper {

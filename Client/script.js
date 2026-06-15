@@ -10,6 +10,9 @@ import {
     handleSortChange,
     handleFilterChange,
     exportTasks
+    exportTasks,
+    populateUserFilter,
+    renderFilteredTasks
 } from './index.js';
 
 const {
@@ -45,5 +48,7 @@ dom.statusFilterSelect.addEventListener('change', handleFilterChange);
 document.addEventListener('DOMContentLoaded', async () => {
     console.log('DOM completamente cargado');
     await loadLocalData();
+    populateUserFilter();
+    renderFilteredTasks();
     console.log('Aplicación de gestión de tareas iniciada');
 });

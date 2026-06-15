@@ -32,6 +32,8 @@ export const dom = {
     exportTasksBtn: document.getElementById("exportTasksBtn"),
     sortTasksSelect: document.getElementById("sortTasks"),
     statusFilterSelect: document.getElementById("statusFilter"),
+    filterStatus: document.getElementById("filterStatus"),
+    filterUser: document.getElementById("filterUser"),
 };
 
 

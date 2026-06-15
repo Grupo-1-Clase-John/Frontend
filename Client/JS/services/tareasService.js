@@ -25,6 +25,8 @@ import {
     hideSortControl,
     showFilterControl,
     hideFilterControl
+    renderFilteredTasks,
+    populateUserFilter
 } from '../ui/tareasUi.js';
 
 import {
@@ -78,14 +80,29 @@ export const findUserByDocument = (documentValue) => {
     return state.dbUsers.find(user => normalizeId(user.id) === normalizedDocument);
 };
 
+// Filtra las tareas del estado actual combinando estado y/o usuario.
+export const filterTasks = ({ status, userId } = {}) => {
+    let tasks = state.dbTasks;
+
+    if (status) {
+        tasks = tasks.filter(task => task.status === status);
+    }
+
+    if (userId) {
+        const normId = normalizeId(userId);
+        tasks = tasks.filter(task =>
+            normalizeId(task.userId) === normId ||
+            normalizeId(task.user_id) === normId ||
+            normalizeId(task.id_usuario) === normId
+        );
+    }
+
+    return tasks;
+};
+
 // Filtra las tareas del estado actual que pertenecen al usuario indicado.
 export const getUserTasks = (userId) => {
-    const normalizedUserId = normalizeId(userId);
-    return state.dbTasks.filter(task =>
-        normalizeId(task.userId) === normalizedUserId ||
-        normalizeId(task.user_id) === normalizedUserId ||
-        normalizeId(task.id_usuario) === normalizedUserId
-    );
+    return filterTasks({ userId });
 };
 
 // Guarda la tarea en el backend.
@@ -203,6 +220,11 @@ export const handleUserSearch = async (event) => {
     setTaskFormCreateMode();
 
     if (!validateUserSearch()) {
+        state.currentUserId = null;
+        hideUserCard();
+        disableTaskForm();
+        dom.filterUser.value = '';
+        renderFilteredTasks();
         return;
     }
 
@@ -226,6 +248,8 @@ export const handleUserSearch = async (event) => {
         showFilterControl();
         hideSortControl();
         loadUserTasks(state.currentUserId);
+        dom.filterUser.value = state.currentUserId;
+        renderFilteredTasks();
         showExportTasksButton(getUserTasks(state.currentUserId));
         showNotification(`Usuario ${user.name} encontrado.`, 'success');
     } else {
@@ -279,7 +303,7 @@ export const handleTaskSubmit = async (event) => {
                 : task
                 );
 
-    loadUserTasks(state.currentUserId);
+    renderFilteredTasks();
     state.editingTaskId = null;
     dom.taskForm.reset();
     dom.taskStatusSelect.value = '';
@@ -302,7 +326,7 @@ export const handleTaskSubmit = async (event) => {
     }
 
     state.dbTasks.push(savedTask);
-    addTaskToTable(savedTask);
+    renderFilteredTasks();
     dom.taskForm.reset();
     dom.taskStatusSelect.value = '';
     state.editingTaskId = null;
@@ -349,11 +373,8 @@ export const handleTaskDelete = async (event) => {
                 row.remove();
     
                 showNotification('Tarea eliminada correctamente.', 'success');
+                renderFilteredTasks();
                 showUserMessage('Tarea eliminada correctamente.');
-    
-                if (dom.tasksTableBody.children.length === 0) {
-                    showEmptyState();
-                }
             } else {
                 showNotification('Error al eliminar la tarea.', 'error');
                 showUserMessage('Error al eliminar la tarea.', true);
