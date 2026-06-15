@@ -22,11 +22,16 @@
 
 import { dom, state } from '../api/api.js';
 import {
-    getStatusClass, // 'pendiente' - 'en-proceso' - 'completada' = clase CSS modificadora.
-    getStatusText,  // 'pendiente' - 'en-proceso' - 'completada' = texto legible.
-    escapeHtml,     //  inserción segura en textContent.
-    normalizeId     // Normaliza IDs (string trimmed) para comparaciones.
+    getStatusClass,
+    getStatusText,
+    escapeHtml,
+    normalizeId,
+    filterTasks
 } from '../services/tareasService.js';
+
+import {
+    showExportTasksButton
+} from './exportTasksUi.js';
 
 /**
  * Muestra el mensaje "Aún no hay tareas registradas".
@@ -126,17 +131,50 @@ export const clearTasksTable = () => {
  * @returns {void}
  */
 export const loadUserTasks = (userId) => {
-    clearTasksTable(); // Limpia la tabla antes de cargar.
-    const userTasks = state.dbTasks.filter(task =>      // Filtra por cualquiera de los nombres del campo:
-        normalizeId(task.userId) === normalizeId(userId) ||
-        normalizeId(task.user_id) === normalizeId(userId) ||
-        normalizeId(task.id_usuario) === normalizeId(userId)
-    );
+    clearTasksTable();
+    const userTasks = filterTasks({ userId });
 
-    if (userTasks.length === 0) { // Si el usuario no tiene tareas muestra vacío y termina.
-        showEmptyState();       
+    if (userTasks.length === 0) {
+        showEmptyState();
+        return;
     }
 
-    hideEmptyState();                                // Hay tareas: oculta el mensaje vacío.
-    userTasks.forEach(task => addTaskToTable(task));  
+    hideEmptyState();
+    userTasks.forEach(task => addTaskToTable(task));
+};
+
+export const populateUserFilter = () => {
+    const select = dom.filterUser;
+    select.innerHTML = '<option value="">Todos</option>';
+    state.dbUsers.forEach(user => {
+        const option = document.createElement('option');
+        option.value = user.id;
+        option.textContent = user.name;
+        select.appendChild(option);
+    });
+
+    dom.filterStatus.addEventListener('change', renderFilteredTasks);
+    dom.filterUser.addEventListener('change', renderFilteredTasks);
+};
+
+export const renderFilteredTasks = () => {
+    const status = dom.filterStatus.value;
+    const userId = dom.filterUser.value;
+
+    const tasks = filterTasks({ status, userId });
+
+    clearTasksTable();
+    if (tasks.length === 0) {
+        showEmptyState();
+        return;
+    }
+
+    hideEmptyState();
+    tasks.forEach(task => addTaskToTable(task));
+
+    if (state.currentUserId && dom.filterUser.value === state.currentUserId) {
+        showExportTasksButton(filterTasks({ userId: state.currentUserId }));
+    } else {
+        showExportTasksButton([]);
+    }
 };

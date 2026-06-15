@@ -24,7 +24,8 @@ export {
     getStatusClass,
     getStatusText,
     escapeHtml,
-    normalizeId
+    normalizeId,
+    filterTasks
 } from './JS/services/tareasService.js';
 
 export {
@@ -50,7 +51,9 @@ export {
 export {
     addTaskToTable,
     clearTasksTable,
-    loadUserTasks
+    loadUserTasks,
+    populateUserFilter,
+    renderFilteredTasks
 } from './JS/ui/tareasUi.js';
 
 export {

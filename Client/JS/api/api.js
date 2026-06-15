@@ -30,6 +30,8 @@ export const dom = {
     tasksTableBody: document.getElementById("tasksTableBody"),
     tasksEmptyState: document.getElementById("tasksEmptyState"),
     exportTasksBtn: document.getElementById("exportTasksBtn"),
+    filterStatus: document.getElementById("filterStatus"),
+    filterUser: document.getElementById("filterUser"),
 };
 
 

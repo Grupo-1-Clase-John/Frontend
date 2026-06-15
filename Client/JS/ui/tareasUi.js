@@ -42,11 +42,13 @@ export {
 
 // Re-exporta la UI de la tabla de tareas (estado vacío, filas, carga filtrada).
 export {
-    showEmptyState,  // Muestra el mensaje "Aún no hay tareas registradas".
-    hideEmptyState,  // Oculta el mensaje de "estado vacío".
-    addTaskToTable,  // Agrega una fila a la tabla con los datos de una tarea.
-    clearTasksTable, // Vacía la tabla y muestra el estado vacío.
-    loadUserTasks    // Filtra y muestra las tareas del usuario indicado.
+    showEmptyState,
+    hideEmptyState,
+    addTaskToTable,
+    clearTasksTable,
+    loadUserTasks,
+    populateUserFilter,
+    renderFilteredTasks
 } from './taskTableUi.js';
 
 // Re-exporta UI de notificaciones (toast de éxito, error, información).
