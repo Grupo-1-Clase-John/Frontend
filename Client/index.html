@@ -126,6 +126,14 @@
                                 <option value="">Todos</option>
                             </select>
                         </div>
+                        <div class="filters__group">
+                            <label for="filterDateOrder" class="filters__label">Ordenar por fecha</label>
+                            <select id="filterDateOrder" class="filters__select">
+                                <option value="">Sin orden</option>
+                                <option value="asc">Ascendente</option>
+                                <option value="desc">Descendente</option>
+                            </select>
+                        </div>
                     </div>
 
                     <div class="tasks__table-wrapper">
@@ -136,6 +144,7 @@
                                     <th class="tasks__column">Descripción</th>
                                     <th class="tasks__column">Estado</th>
                                     <th class="tasks__column">Usuario</th>
+                                    <th class="tasks__column">Fecha/Hora</th>
                                     <th class="tasks__column">Acciones</th>
                                 </tr>
                             </thead>
@@ -159,6 +168,8 @@
         </footer>
     </div>
 
+    <!-- [formGuard.js] Script de seguridad — evita recarga si los módulos ES fallan -->
+    <script src="JS/formGuard.js"></script>
     <script src="script.js" type="module"></script>
 </body>
 </html>

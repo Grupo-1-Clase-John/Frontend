@@ -65,7 +65,7 @@
       "userId": 5,
       "title": "Preparar presentación",
       "description": "Crear diapositivas para la reunión del viernes",
-      "status": "en-proceso",
+      "status": "pendiente",
       "createdAt": "2026-05-11T14:30:00Z"
     },
     {
@@ -93,14 +93,6 @@
       "createdAt": "2026-05-26T21:51:14.855Z"
     },
     {
-      "id": "d5hFEjjIWbM",
-      "userId": 2,
-      "title": "2",
-      "description": "3223",
-      "status": "pendiente",
-      "createdAt": "2026-06-06T08:39:38.649Z"
-    },
-    {
       "id": "IVNns5M8UMY",
       "userId": 3,
       "title": "323",
@@ -115,6 +107,94 @@
       "description": "121212",
       "status": "en-proceso",
       "createdAt": "2026-06-16T05:59:13.442Z"
+    },
+    {
+      "id": "Gk8eb4pO6HM",
+      "userId": "2",
+      "title": "23332",
+      "description": "2323232323",
+      "status": "pendiente",
+      "createdAt": "2026-06-16T22:19:07.929Z"
+    },
+    {
+      "id": "32WFOM8Y_fU",
+      "userId": "4",
+      "title": "2232",
+      "description": "32323232",
+      "status": "en-proceso",
+      "createdAt": "2026-06-16T22:19:23.448Z"
+    },
+    {
+      "id": "x6rsL7dRy3Y",
+      "userId": "2",
+      "title": "23223232",
+      "description": "2323232323",
+      "status": "pendiente",
+      "createdAt": "2026-06-16T22:25:12.087Z"
+    },
+    {
+      "id": "kA5g3nN7-zg",
+      "userId": "4",
+      "title": "wewewewe",
+      "description": "eewewe",
+      "status": "completada",
+      "createdAt": "2026-06-16T22:25:24.855Z"
+    },
+    {
+      "id": "3TMzXgzRdaI",
+      "userId": "2",
+      "title": "23232",
+      "description": "3232",
+      "status": "en-proceso",
+      "createdAt": "2026-06-16T22:26:00.831Z"
+    },
+    {
+      "id": "EzvgkTIcDbs",
+      "userId": "2",
+      "title": "34243",
+      "description": "344",
+      "status": "completada",
+      "createdAt": "2026-06-16T22:26:06.287Z"
+    },
+    {
+      "id": "5mYl1JPEAes",
+      "userId": "2",
+      "title": "3434",
+      "description": "343434",
+      "status": "en-proceso",
+      "createdAt": "2026-06-16T22:29:10.606Z"
+    },
+    {
+      "id": "7DQClp8SKns",
+      "userId": "6",
+      "title": "ererr",
+      "description": "erererrer",
+      "status": "en-proceso",
+      "createdAt": "2026-06-16T22:36:02.621Z"
+    },
+    {
+      "id": "XICfTzPjgTk",
+      "userId": "2",
+      "title": "343434",
+      "description": "33434343",
+      "status": "en-proceso",
+      "createdAt": "2026-06-16T22:42:03.012Z"
+    },
+    {
+      "id": "ElG932CX54A",
+      "userId": "9",
+      "title": "777",
+      "description": "777",
+      "status": "pendiente",
+      "createdAt": "2026-06-16T22:42:33.843Z"
+    },
+    {
+      "id": "OQlUnyOQq_Q",
+      "userId": "5",
+      "title": "432442",
+      "description": "44424",
+      "status": "completada",
+      "createdAt": "2026-06-16T22:45:04.484Z"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

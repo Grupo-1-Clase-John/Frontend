@@ -800,3 +800,15 @@ button {
         max-width: none;
     }
 }
+
+/* ============================================
+ * [AGREGADO] Botones de acciones en tabla de tareas
+ * ============================================ */
+.tasks__row .tasks__cell:last-child {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.tasks__row .tasks__cell:last-child .btn:first-child {
+    background: linear-gradient(135deg, var(--color-primary-dark), var(--color-primary));
+}

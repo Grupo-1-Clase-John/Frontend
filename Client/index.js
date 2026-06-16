@@ -66,4 +66,4 @@ export {
     error,
     info,
     warning
-} from './JS/ui/notifications.js';
+} from './JS/ui/notificationsUi.js';

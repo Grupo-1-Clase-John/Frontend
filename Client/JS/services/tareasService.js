@@ -81,7 +81,13 @@ export const filterTasks = ({ status, userId } = {}) => {
     let tasks = state.dbTasks;
 
     if (status) {
-        tasks = tasks.filter(task => task.status === status);
+        var priority = [];
+        var rest = [];
+        tasks.forEach(function(t) {
+            if (t.status === status) { priority.push(t); }
+            else { rest.push(t); }
+        });
+        tasks = priority.concat(rest);
     }
 
     if (userId) {

@@ -87,6 +87,18 @@ export const addTaskToTable = (task) => {
     const userCell = document.createElement('td');
     userCell.textContent = userName;
 
+    // [AGREGADO] Celda de fecha/hora de registro
+    const dateCell = document.createElement('td');
+    dateCell.classList.add('tasks__cell');
+    if (task.createdAt) {
+        const d = new Date(task.createdAt);
+        dateCell.textContent = d.toLocaleDateString() + ' ' + d.toLocaleTimeString();
+        dateCell.dataset.createdAt = task.createdAt;
+    } else {
+        dateCell.textContent = '-';
+        dateCell.dataset.createdAt = '';
+    }
+
     const actionsCell = document.createElement('td');
     actionsCell.classList.add('tasks__cell');
 
@@ -110,6 +122,7 @@ export const addTaskToTable = (task) => {
     row.appendChild(descriptionCell);   
     row.appendChild(statusCell);        
     row.appendChild(userCell);        
+    row.appendChild(dateCell);        // [AGREGADO] Fecha/hora
     row.appendChild(actionsCell);    
 
     dom.tasksTableBody.appendChild(row); 
