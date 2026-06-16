@@ -94,7 +94,7 @@ export const addTaskToTable = (task) => {
     actionsCell.classList.add('tasks__cell');
 
     const deleteButton = document.createElement('button');  // Botón "Eliminar" 
-    deleteButton.classList.add('btn', 'btn--primary', 'btn--small');
+    deleteButton.classList.add('btn', 'btn--danger', 'btn--small');
     deleteButton.textContent = 'Eliminar';
     actionsCell.appendChild(deleteButton);
 

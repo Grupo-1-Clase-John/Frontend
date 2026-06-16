@@ -85,9 +85,7 @@ export const filterTasks = ({ status, userId } = {}) => {
     if (userId) {
         const normId = normalizeId(userId);
         tasks = tasks.filter(task =>
-            normalizeId(task.userId) === normId ||
-            normalizeId(task.user_id) === normId ||
-            normalizeId(task.id_usuario) === normId
+            normalizeId(task.userId) === normId
         );
     }
 

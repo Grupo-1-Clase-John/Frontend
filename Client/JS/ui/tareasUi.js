@@ -47,4 +47,4 @@ export {
     loadUserTasks,
     populateUserFilter,
     renderFilteredTasks
-} from './taskTableUi.js';
+} from './TaskTableUi.js';

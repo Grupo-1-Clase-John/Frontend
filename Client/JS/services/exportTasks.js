@@ -15,7 +15,7 @@ export const exportTasks = async (event) => {
     }
 
     try {
-        const response = await fetch(`${apiUrl}users/${state.currentUserId}/tasks`);
+        const response = await fetch(`${apiUrl}tasks?userId=${state.currentUserId}`);
 
         if (!response.ok) {
             throw new Error('Error al obtener las tareas para exportar');
