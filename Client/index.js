@@ -39,6 +39,7 @@ export {
     handleTaskSubmit,
     handleTaskEdit,
     handleTaskDelete
+    filterTasks
 } from './JS/services/tareasService.js';
 
 export {
@@ -67,3 +68,16 @@ export {
     info,
     warning
 } from './JS/ui/notifications.js';
+    addTaskToTable,
+    clearTasksTable,
+    loadUserTasks,
+    populateUserFilter,
+    renderFilteredTasks
+} from './JS/ui/tareasUi.js';
+
+export {
+    handleUserSearch,
+    handleTaskSubmit,
+    handleTaskEdit,
+    handleTaskDelete
+} from './JS/services/tareasService.js';
