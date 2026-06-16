@@ -51,6 +51,7 @@
       "email": "diego.herrera@mail.com"
     }
   ],
+<<<<<<< Updated upstream
   "tasks": [
     {
       "id": "1",
@@ -109,5 +110,8 @@
       "createdAt": "2026-06-06T08:39:50.580Z"
     }
   ],
+=======
+  "tasks": [],
+>>>>>>> Stashed changes
   "$schema": "./node_modules/json-server/schema.json"
 }

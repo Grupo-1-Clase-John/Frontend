@@ -57,8 +57,16 @@ export {
 } from './JS/ui/tareasUi.js';
 
 export {
+<<<<<<< Updated upstream
     handleUserSearch,
     handleTaskSubmit,
     handleTaskEdit,
     handleTaskDelete
 } from './JS/services/tareasService.js';
+=======
+    success,
+    error,
+    info,
+    warning
+} from './JS/ui/notifications.js';
+>>>>>>> Stashed changes

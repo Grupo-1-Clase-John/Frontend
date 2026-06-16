@@ -12,6 +12,13 @@ import {
     renderFilteredTasks
 } from './index.js';
 
+import {
+    success,
+    error,
+    info,
+    warning
+} from './index.js';
+
 const {
     userSearchForm,
     userDocumentInput,
@@ -45,4 +52,25 @@ document.addEventListener('DOMContentLoaded', async () => {
     populateUserFilter();
     renderFilteredTasks();
     console.log('Aplicación de gestión de tareas iniciada');
+});
+
+const observer = new MutationObserver(() => {
+    const el = dom.userSearchMessage;
+    if (el.classList.contains('hidden')) return;
+    const text = el.textContent;
+    if (!text || text.length < 5) return;
+    if (text.includes('No se pudo conectar') || text.includes('Verifica que el servidor')) {
+        error(text);
+    } else if (text.includes('no encontrado') || text.includes('Error') || text.includes('error')) {
+        warning(text);
+    } else if (text.includes('guardada') || text.includes('actualizada') || text.includes('eliminada') || text.includes('correctamente')) {
+        success(text);
+    }
+});
+observer.observe(dom.userSearchMessage, {
+    attributes: true,
+    attributeFilter: ['class'],
+    childList: true,
+    characterData: true,
+    subtree: true
 });
