@@ -7,7 +7,9 @@ import {
     handleInputChange,
     handleTaskEdit,
     handleTaskDelete,
-    exportTasks
+    exportTasks,
+    populateUserFilter,
+    renderFilteredTasks
 } from './index.js';
 
 const {
@@ -40,5 +42,7 @@ taskStatusSelect.addEventListener('change', handleInputChange);
 document.addEventListener('DOMContentLoaded', async () => {
     console.log('DOM completamente cargado');
     await loadLocalData();
+    populateUserFilter();
+    renderFilteredTasks();
     console.log('Aplicación de gestión de tareas iniciada');
 });

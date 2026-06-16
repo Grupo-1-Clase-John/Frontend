@@ -107,6 +107,14 @@
       "description": "3323",
       "status": "completada",
       "createdAt": "2026-06-06T08:39:50.580Z"
+    },
+    {
+      "id": "RuZVkj8XykE",
+      "userId": 1,
+      "title": "21212",
+      "description": "121212",
+      "status": "en-proceso",
+      "createdAt": "2026-06-16T05:59:13.442Z"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
