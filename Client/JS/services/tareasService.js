@@ -76,8 +76,8 @@ export const findUserByDocument = (documentValue) => {
     return state.dbUsers.find(user => normalizeId(user.id) === normalizedDocument);
 };
 
-// Filtra las tareas del estado actual combinando estado y/o usuario.
-export const filterTasks = ({ status, userId } = {}) => {
+// Filtra las tareas del estado actual combinando estado, usuario y orden por fecha.
+export const filterTasks = ({ status, userId, dateOrder } = {}) => {
     let tasks = state.dbTasks;
 
     if (status) {
@@ -97,6 +97,14 @@ export const filterTasks = ({ status, userId } = {}) => {
             normalizeId(task.user_id) === normId ||
             normalizeId(task.id_usuario) === normId
         );
+    }
+
+    if (dateOrder) {
+        tasks.sort((a, b) => {
+            const da = a.createdAt ? new Date(a.createdAt).getTime() : 0;
+            const db = b.createdAt ? new Date(b.createdAt).getTime() : 0;
+            return dateOrder === 'asc' ? da - db : db - da;
+        });
     }
 
     return tasks;

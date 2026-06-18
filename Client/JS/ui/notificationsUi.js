@@ -116,5 +116,4 @@ export const error = (msg, duration) => show(msg, 'error', duration);
 export const info = (msg, duration) => show(msg, 'info', duration);
 export const warning = (msg, duration) => show(msg, 'warning', duration);
 
-// Señal para formGuard.js: los módulos ES cargaron correctamente
 document.dispatchEvent(new CustomEvent('modulesReady'));

@@ -38,8 +38,7 @@ export {
     handleUserSearch,
     handleTaskSubmit,
     handleTaskEdit,
-    handleTaskDelete,
-    filterTasks
+    handleTaskDelete
 } from './JS/services/tareasService.js';
 
 export {
@@ -56,27 +55,8 @@ export {
 } from './JS/utils/validaciones.js';
 
 export {
-    findUserByDocument,
-    saveTaskToBackend,
-    updateTaskInBackend,
-    loadLocalData
-} from './JS/services/tareasService.js';
-
-export {
     success,
     error,
     info,
     warning
 } from './JS/ui/notificationsUi.js';
-    addTaskToTable,
-    clearTasksTable,
-    loadUserTasks,
-    populateUserFilter,
-    renderFilteredTasks
-
-export {
-    handleUserSearch,
-    handleTaskSubmit,
-    handleTaskEdit,
-    handleTaskDelete
-} from './JS/services/tareasService.js';

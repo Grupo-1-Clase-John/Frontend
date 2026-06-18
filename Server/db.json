@@ -195,6 +195,30 @@
       "description": "44424",
       "status": "completada",
       "createdAt": "2026-06-16T22:45:04.484Z"
+    },
+    {
+      "id": "YwoSfntjMKo",
+      "userId": 1,
+      "title": "22222222222222222222222",
+      "description": "222222222222222222232",
+      "status": "en-proceso",
+      "createdAt": "2026-06-18T04:50:25.143Z"
+    },
+    {
+      "id": "SP6g-MVtUpg",
+      "userId": 1,
+      "title": "223rdsd",
+      "description": "sdsdsds",
+      "status": "completada",
+      "createdAt": "2026-06-18T04:50:38.542Z"
+    },
+    {
+      "id": "dfS6mrKL1w4",
+      "userId": 7,
+      "title": "eeee",
+      "description": "eeeee",
+      "status": "pendiente",
+      "createdAt": "2026-06-18T04:51:46.038Z"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

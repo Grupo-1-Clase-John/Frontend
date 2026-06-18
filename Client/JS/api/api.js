@@ -32,6 +32,7 @@ export const dom = {
     exportTasksBtn: document.getElementById("exportTasksBtn"),
     filterStatus: document.getElementById("filterStatus"),
     filterUser: document.getElementById("filterUser"),
+    filterDateOrder: document.getElementById("filterDateOrder"),
 };
 
 

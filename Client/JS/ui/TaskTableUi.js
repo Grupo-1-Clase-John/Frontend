@@ -168,13 +168,15 @@ export const populateUserFilter = () => {
 
     dom.filterStatus.addEventListener('change', renderFilteredTasks);
     dom.filterUser.addEventListener('change', renderFilteredTasks);
+    dom.filterDateOrder.addEventListener('change', renderFilteredTasks);
 };
 
 export const renderFilteredTasks = () => {
     const status = dom.filterStatus.value;
     const userId = dom.filterUser.value;
+    const dateOrder = dom.filterDateOrder.value;
 
-    const tasks = filterTasks({ status, userId });
+    const tasks = filterTasks({ status, userId, dateOrder });
 
     clearTasksTable();
     if (tasks.length === 0) {
