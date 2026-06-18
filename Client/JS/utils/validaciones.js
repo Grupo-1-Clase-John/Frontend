@@ -5,7 +5,7 @@ import {
 import {
     normalizeId,
     isValidInput
-} from '../services/tareasService.js';
+} from './helpers.js';
 
 import {
     showError,

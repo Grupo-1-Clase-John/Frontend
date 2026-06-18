@@ -16,7 +16,13 @@ export {
     disableTaskForm,
     handleInputChange,
     setTaskFormEditMode,
-    setTaskFormCreateMode
+    setTaskFormCreateMode,
+    showNotification,
+    addTaskToTable,
+    clearTasksTable,
+    loadUserTasks,
+    populateUserFilter,
+    renderFilteredTasks
 } from './JS/ui/tareasUi.js';
 
 export {
@@ -24,7 +30,15 @@ export {
     getStatusText,
     escapeHtml,
     normalizeId,
-    filterTasks
+    filterTasks,
+    findUserByDocument,
+    saveTaskToBackend,
+    updateTaskInBackend,
+    loadLocalData,
+    handleUserSearch,
+    handleTaskSubmit,
+    handleTaskEdit,
+    handleTaskDelete
 } from './JS/services/tareasService.js';
 
 export {
@@ -41,23 +55,8 @@ export {
 } from './JS/utils/validaciones.js';
 
 export {
-    findUserByDocument,
-    saveTaskToBackend,
-    updateTaskInBackend,
-    loadLocalData
-} from './JS/services/tareasService.js';
-
-export {
-    addTaskToTable,
-    clearTasksTable,
-    loadUserTasks,
-    populateUserFilter,
-    renderFilteredTasks
-} from './JS/ui/tareasUi.js';
-
-export {
-    handleUserSearch,
-    handleTaskSubmit,
-    handleTaskEdit,
-    handleTaskDelete
-} from './JS/services/tareasService.js';
+    success,
+    error,
+    info,
+    warning
+} from './JS/ui/notificationsUi.js';

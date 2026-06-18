@@ -87,6 +87,18 @@ export const addTaskToTable = (task) => {
     const userCell = document.createElement('td');
     userCell.textContent = userName;
 
+    // [AGREGADO] Celda de fecha/hora de registro
+    const dateCell = document.createElement('td');
+    dateCell.classList.add('tasks__cell');
+    if (task.createdAt) {
+        const d = new Date(task.createdAt);
+        dateCell.textContent = d.toLocaleDateString() + ' ' + d.toLocaleTimeString();
+        dateCell.dataset.createdAt = task.createdAt;
+    } else {
+        dateCell.textContent = '-';
+        dateCell.dataset.createdAt = '';
+    }
+
     const actionsCell = document.createElement('td');
     actionsCell.classList.add('tasks__cell');
 
@@ -110,6 +122,7 @@ export const addTaskToTable = (task) => {
     row.appendChild(descriptionCell);   
     row.appendChild(statusCell);        
     row.appendChild(userCell);        
+    row.appendChild(dateCell);        // [AGREGADO] Fecha/hora
     row.appendChild(actionsCell);    
 
     dom.tasksTableBody.appendChild(row); 
@@ -155,13 +168,15 @@ export const populateUserFilter = () => {
 
     dom.filterStatus.addEventListener('change', renderFilteredTasks);
     dom.filterUser.addEventListener('change', renderFilteredTasks);
+    dom.filterDateOrder.addEventListener('change', renderFilteredTasks);
 };
 
 export const renderFilteredTasks = () => {
     const status = dom.filterStatus.value;
     const userId = dom.filterUser.value;
+    const dateOrder = dom.filterDateOrder.value;
 
-    const tasks = filterTasks({ status, userId });
+    const tasks = filterTasks({ status, userId, dateOrder });
 
     clearTasksTable();
     if (tasks.length === 0) {
