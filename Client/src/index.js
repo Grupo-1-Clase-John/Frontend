@@ -50,6 +50,21 @@ export {
 } from './JS/services/exportTasks.js';
 
 export {
+    loadUsers,
+    createUser,
+    updateUser,
+    deleteUser
+} from './JS/services/usersService.js';
+
+export {
+    usersDom,
+    renderUsersTable,
+    showUserForm,
+    hideUserForm,
+    setUserFormError
+} from './JS/ui/usersUi.js';
+
+export {
     validateUserSearch,
     validateTaskForm
 } from './JS/utils/validaciones.js';
