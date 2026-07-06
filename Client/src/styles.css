@@ -415,6 +415,14 @@ button {
     cursor: not-allowed;
 }
 
+select[multiple] {
+    min-height: 110px;
+}
+
+select[multiple] option {
+    padding: var(--spacing-xs) var(--spacing-sm);
+}
+
 .tasks__header {
     display: flex;
     flex-wrap: wrap;
@@ -521,6 +529,18 @@ button {
     text-transform: capitalize;
     color: var(--color-secondary);
     font-weight: var(--font-weight-medium);
+}
+
+.user-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    margin: 1px 2px;
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-medium);
+    background: rgba(79, 70, 229, 0.15);
+    color: var(--color-secondary-light);
+    white-space: nowrap;
 }
 
 .tasks__empty {

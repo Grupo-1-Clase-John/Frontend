@@ -59,7 +59,7 @@ export const loadLocalData = async () => {
             .map(task => ({
                 ...task,
                 id: normalizeId(task.id),
-                userId: normalizeId(task.userId)
+                userIds: (task.userIds || (task.userId ? [String(task.userId)] : [])).map(normalizeId)
             }));
     } catch (error) {
         console.warn('No se pudo cargar datos desde el backend:', error);
@@ -93,9 +93,7 @@ export const filterTasks = ({ status, userId, dateOrder } = {}) => {
     if (userId) {
         const normId = normalizeId(userId);
         tasks = tasks.filter(task =>
-            normalizeId(task.userId) === normId ||
-            normalizeId(task.user_id) === normId ||
-            normalizeId(task.id_usuario) === normId
+            (task.userIds || []).some(id => normalizeId(id) === normId)
         );
     }
 
@@ -117,10 +115,7 @@ export const getUserTasks = (userId) => {
 
 // Guarda la tarea en el backend.
 export const saveTaskToBackend = async (task) => {
-    const payload = {
-        ...task,
-        userId: Number(task.userId) || task.userId
-    };
+    const payload = { ...task };
 
     try {
         const response = await fetch(`${apiUrl}tasks`, {
@@ -139,9 +134,9 @@ export const saveTaskToBackend = async (task) => {
         showNotification('Tarea guardada correctamente.', 'success');
         showUserMessage('Tarea guardada en el backend.');
         return {
-            ...task,
-            id: normalizeId(saved.id || task.id),
-            userId: normalizeId(saved.userId || payload.userId)
+            ...saved,
+            id: normalizeId(saved.id),
+            userIds: (saved.userIds || []).map(normalizeId)
         };
     } catch (error) {
         console.warn('POST /tasks falló:', error);
@@ -173,7 +168,7 @@ export const updateTaskInBackend = async (taskId, updatedFields) => {
         return {
             ...updatedTask,
             id: normalizeId(updatedTask.id),
-            userId: normalizeId(updatedTask.userId)
+            userIds: (updatedTask.userIds || []).map(normalizeId)
         };
     } catch (error) {
         console.warn('PATCH /tasks falló:', error);
@@ -221,18 +216,14 @@ export const deleteTask = async (taskId) => {
 
 //HANDLERS
 
-// Maneja la búsqueda de usuario, mostrando datos y habilitando el formulario si se encuentra el usuario.
+// Maneja la búsqueda de usuario, mostrando datos y filtrando tareas.
 export const handleUserSearch = async (event) => {
     event.preventDefault();
     clearAllErrors();
     hideUserMessage();
-    state.editingTaskId = null;
-    setTaskFormCreateMode();
 
     if (!validateUserSearch()) {
-        state.currentUserId = null;
         hideUserCard();
-        disableTaskForm();
         dom.filterUser.value = '';
         renderFilteredTasks();
         return;
@@ -249,7 +240,6 @@ export const handleUserSearch = async (event) => {
 
         hideUserMessage();
         showUserCard();
-        enableTaskForm();
         dom.filterUser.value = state.currentUserId;
         renderFilteredTasks();
         showExportTasksButton(getUserTasks(state.currentUserId));
@@ -257,7 +247,6 @@ export const handleUserSearch = async (event) => {
     } else {
         state.currentUserId = null;
         hideUserCard();
-        disableTaskForm();
         clearTasksTable();
         showNotification('Usuario no encontrado en el sistema', 'error');
         showUserMessage('Usuario no encontrado en el sistema', true);
@@ -270,13 +259,13 @@ export const handleTaskSubmit = async (event) => {
     event.stopPropagation();
     clearAllErrors();
 
-    if (!state.currentUserId) {
-        showError(dom.taskStatusError, 'Debe buscar un usuario primero');
-        dom.taskStatusSelect.classList.add('error');
+    if (!validateTaskForm()) {
         return;
     }
 
-    if (!validateTaskForm()) {
+    const selectedUserIds = Array.from(dom.taskUsers.selectedOptions).map(o => normalizeId(o.value));
+    if (selectedUserIds.length === 0) {
+        showError(dom.taskUsersError, 'Seleccione al menos un usuario');
         return;
     }
 
@@ -284,7 +273,8 @@ export const handleTaskSubmit = async (event) => {
     const updatedFields = {
         title: dom.taskTitleInput.value.trim(),
         description: dom.taskDescriptionInput.value.trim(),
-        status: dom.taskStatusSelect.value
+        status: dom.taskStatusSelect.value,
+        userIds: selectedUserIds
     };
 
     const updatedTask = await updateTaskInBackend(state.editingTaskId, updatedFields);
@@ -298,7 +288,7 @@ export const handleTaskSubmit = async (event) => {
             ? {
                 ...task,
                 ...updatedTask,
-                userId: normalizeId(updatedTask.userId || task.userId)
+                userIds: (updatedTask.userIds || []).map(normalizeId)
                 }
                 : task
                 );
@@ -312,8 +302,7 @@ export const handleTaskSubmit = async (event) => {
         }
 
     const newTask = {
-        id: String(Date.now()),
-        userId: state.currentUserId,
+        userIds: selectedUserIds,
         title: dom.taskTitleInput.value.trim(),
         description: dom.taskDescriptionInput.value.trim(),
         status: dom.taskStatusSelect.value,
@@ -349,6 +338,11 @@ export const handleTaskEdit = (taskId) => {
     dom.taskTitleInput.value = task.title;
     dom.taskDescriptionInput.value = task.description;
     dom.taskStatusSelect.value = task.status;
+
+    const taskUserIds = (task.userIds || []).map(normalizeId);
+    Array.from(dom.taskUsers.options).forEach(opt => {
+        opt.selected = taskUserIds.includes(normalizeId(opt.value));
+    });
 
     clearAllErrors();
     hideUserMessage();
