@@ -161,6 +161,54 @@
                     </div>
                 </div>
             </section>
+
+            <section class="users-admin users-admin--panel">
+                <div class="card">
+                    <div class="tasks__header">
+                        <h2 class="card__title">Administración de Usuarios</h2>
+                        <button id="addUserBtn" class="btn btn--primary">Agregar Usuario</button>
+                    </div>
+
+                    <form id="userForm" class="form hidden" novalidate>
+                        <div class="form__group">
+                            <label for="userDocInput" class="form__label">Documento</label>
+                            <input type="text" id="userDocInput" class="form__input" placeholder="Ingrese el documento" autocomplete="off">
+                            <span id="userDocError" class="form__error"></span>
+                        </div>
+                        <div class="form__group">
+                            <label for="userNameInput" class="form__label">Nombre completo</label>
+                            <input type="text" id="userNameInput" class="form__input" placeholder="Ingrese el nombre" autocomplete="off">
+                            <span id="userNameError" class="form__error"></span>
+                        </div>
+                        <div class="form__group">
+                            <label for="userEmailInput" class="form__label">Email</label>
+                            <input type="email" id="userEmailInput" class="form__input" placeholder="Ingrese el email" autocomplete="off">
+                            <span id="userEmailError" class="form__error"></span>
+                        </div>
+                        <div class="task-register__actions">
+                            <button type="submit" id="submitUserBtn" class="btn btn--primary">Guardar Usuario</button>
+                            <button type="button" id="cancelUserBtn" class="btn btn--primary">Cancelar</button>
+                        </div>
+                    </form>
+
+                    <div class="tasks__table-wrapper">
+                        <table class="tasks__table" aria-label="Lista de usuarios">
+                            <thead class="tasks__head">
+                                <tr>
+                                    <th class="tasks__column">Documento</th>
+                                    <th class="tasks__column">Nombre</th>
+                                    <th class="tasks__column">Email</th>
+                                    <th class="tasks__column">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="usersTableBody" class="tasks__body"></tbody>
+                        </table>
+                        <div id="usersEmptyState" class="tasks__empty">
+                            <p>No hay usuarios registrados.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </main>
 
         <footer class="page__footer footer">
