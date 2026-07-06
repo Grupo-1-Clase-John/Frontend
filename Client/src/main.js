@@ -52,6 +52,14 @@ taskDescriptionInput.addEventListener('input', handleInputChange);
 taskStatusSelect.addEventListener('change', handleInputChange);
 taskUsers.addEventListener('change', handleInputChange);
 
+// --- Robot ---
+
+const robot = document.getElementById('robot');
+robot.addEventListener('click', () => {
+    robot.classList.add('robot--reboot');
+    setTimeout(() => robot.classList.remove('robot--reboot'), 2000);
+});
+
 // --- User Admin ---
 
 usersDom.addUserBtn.addEventListener('click', () => showUserForm());
