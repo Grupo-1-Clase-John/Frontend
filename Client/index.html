@@ -49,13 +49,25 @@
 
                     <p class="user-search__message info-message hidden" id="userSearchMessage"></p>
                 </div>
+
+                <div class="robot" id="robot" role="img" aria-label="Robot futurista">
+                    <div class="robot__antenna"></div>
+                    <div class="robot__head">
+                        <div class="robot__eye robot__eye--left"></div>
+                        <div class="robot__eye robot__eye--right"></div>
+                    </div>
+                    <div class="robot__body">
+                        <div class="robot__chest-grid"></div>
+                    </div>
+                    <div class="robot__scanline"></div>
+                </div>
             </section>
 
             <section class="task-register task-register--panel">
                 <div class="task-register__card card">
                     <h2 class="card__title">Registrar Tarea</h2>
                     <form id="taskForm" class="task-register__form form" novalidate>
-                        <fieldset class="task-register__fieldset" id="taskFormFieldset" disabled>
+                        <fieldset class="task-register__fieldset" id="taskFormFieldset">
                             <div class="form__group">
                                 <label for="taskTitle" class="form__label">Título de la tarea</label>
                                 <input
@@ -93,6 +105,13 @@
                                     <option value="completada">Completada</option>
                                 </select>
                                 <span class="form__error" id="taskStatusError" aria-live="polite"></span>
+                            </div>
+
+                            <div class="form__group">
+                                <label for="taskUsers" class="form__label">Usuarios asignados</label>
+                                <select id="taskUsers" class="form__input" name="taskUsers" multiple aria-required="true" aria-describedby="taskUsersError">
+                                </select>
+                                <span class="form__error" id="taskUsersError" aria-live="polite"></span>
                             </div>
 
                             <div class="task-register__actions">

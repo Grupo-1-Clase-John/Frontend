@@ -65,9 +65,7 @@ export const addTaskToTable = (task) => {
     row.classList.add('tasks__row');                  
     row.dataset.taskId = task.id;                     // Guarda el id en data-attribute para delegación.
 
-    const statusClass = getStatusClass(task.status);                                     
-    const user = state.dbUsers.find(u => normalizeId(u.id) === normalizeId(task.userId)); // Busca el usuario dueño de la tarea.
-    const userName = user ? user.name : `Usuario ${normalizeId(task.userId)}`;            // Fallback si el usuario no se encuentra.
+    const statusClass = getStatusClass(task.status);
 
     const titleCell = document.createElement('td');       
     titleCell.classList.add('tasks__cell');                  
@@ -84,8 +82,15 @@ export const addTaskToTable = (task) => {
     statusBadge.textContent = getStatusText(task.status);  
     statusCell.appendChild(statusBadge);                   
 
+    const taskUserIds = (task.userIds || (task.userId ? [task.userId] : [])).map(normalizeId);
     const userCell = document.createElement('td');
-    userCell.textContent = userName;
+    taskUserIds.forEach(id => {
+        const u = state.dbUsers.find(u => normalizeId(u.id) === normalizeId(id));
+        const badge = document.createElement('span');
+        badge.classList.add('user-badge');
+        badge.textContent = u ? u.name : `Usuario ${id}`;
+        userCell.appendChild(badge);
+    });
 
     // [AGREGADO] Celda de fecha/hora de registro
     const dateCell = document.createElement('td');

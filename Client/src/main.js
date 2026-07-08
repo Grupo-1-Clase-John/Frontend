@@ -30,6 +30,7 @@ const {
     taskTitleInput,
     taskDescriptionInput,
     taskStatusSelect,
+    taskUsers,
     tasksTableBody,
     exportTasksBtn
 } = dom;
@@ -49,6 +50,15 @@ userDocumentInput.addEventListener('input', handleInputChange);
 taskTitleInput.addEventListener('input', handleInputChange);
 taskDescriptionInput.addEventListener('input', handleInputChange);
 taskStatusSelect.addEventListener('change', handleInputChange);
+taskUsers.addEventListener('change', handleInputChange);
+
+// --- Robot ---
+
+const robot = document.getElementById('robot');
+robot.addEventListener('click', () => {
+    robot.classList.add('robot--reboot');
+    setTimeout(() => robot.classList.remove('robot--reboot'), 2000);
+});
 
 // --- User Admin ---
 
@@ -96,11 +106,22 @@ document.addEventListener('user:delete', async (event) => {
     renderUsersTable();
 });
 
+const populateTaskUsers = () => {
+    taskUsers.innerHTML = '';
+    state.dbUsers.forEach(user => {
+        const option = document.createElement('option');
+        option.value = user.id;
+        option.textContent = `${user.name} (${user.id})`;
+        taskUsers.appendChild(option);
+    });
+};
+
 document.addEventListener('DOMContentLoaded', async () => {
     console.log('DOM completamente cargado');
     await loadLocalData();
     await loadUsers();
     populateUserFilter();
+    populateTaskUsers();
     renderFilteredTasks();
     renderUsersTable();
     console.log('Aplicación de gestión de tareas iniciada');
