@@ -107,21 +107,23 @@ export const addTaskToTable = (task) => {
     const actionsCell = document.createElement('td');
     actionsCell.classList.add('tasks__cell');
 
-    const deleteButton = document.createElement('button');  // Botón "Eliminar" 
-    deleteButton.classList.add('btn', 'btn--primary', 'btn--small');
-    deleteButton.textContent = 'Eliminar';
-    actionsCell.appendChild(deleteButton);
+    if (state.currentUserRole === 'admin') {
+        const deleteButton = document.createElement('button');  // Botón "Eliminar" 
+        deleteButton.classList.add('btn', 'btn--primary', 'btn--small');
+        deleteButton.textContent = 'Eliminar';
+        actionsCell.appendChild(deleteButton);
 
-    const editButton = document.createElement('button');    // Botón "Editar" 
-    editButton.type = 'button';                            
-    editButton.classList.add('btn', 'btn--primary', 'btn--small');
-    editButton.textContent = 'Editar';
-    editButton.addEventListener('click', () => {             // Al hacer clic emite el evento `task:edit`:
-        document.dispatchEvent(new CustomEvent('task:edit', { 
-            detail: { taskId: task.id }                      // Payload: id de la tarea a editar.
-        }));
-    });
-    actionsCell.appendChild(editButton);
+        const editButton = document.createElement('button');    // Botón "Editar" 
+        editButton.type = 'button';                            
+        editButton.classList.add('btn', 'btn--primary', 'btn--small');
+        editButton.textContent = 'Editar';
+        editButton.addEventListener('click', () => {             // Al hacer clic emite el evento `task:edit`:
+            document.dispatchEvent(new CustomEvent('task:edit', { 
+                detail: { taskId: task.id }                      // Payload: id de la tarea a editar.
+            }));
+        });
+        actionsCell.appendChild(editButton);
+    }
 
     row.appendChild(titleCell);         
     row.appendChild(descriptionCell);   
@@ -178,8 +180,12 @@ export const populateUserFilter = () => {
 
 export const renderFilteredTasks = () => {
     const status = dom.filterStatus.value;
-    const userId = dom.filterUser.value;
     const dateOrder = dom.filterDateOrder.value;
+    let userId = dom.filterUser.value;
+
+    if (state.currentUserRole !== 'admin' && state.currentUserId) {
+        userId = state.currentUserId;
+    }
 
     const tasks = filterTasks({ status, userId, dateOrder });
 
@@ -192,9 +198,13 @@ export const renderFilteredTasks = () => {
     hideEmptyState();
     tasks.forEach(task => addTaskToTable(task));
 
-    if (state.currentUserId && dom.filterUser.value === state.currentUserId) {
-        showExportTasksButton(filterTasks({ userId: state.currentUserId }));
+    if (state.currentUserRole === 'admin') {
+        if (dom.filterUser.value && dom.filterUser.value === state.currentUserId) {
+            showExportTasksButton(filterTasks({ userId: state.currentUserId }));
+        } else {
+            showExportTasksButton([]);
+        }
     } else {
-        showExportTasksButton([]);
+        showExportTasksButton(filterTasks({ userId: state.currentUserId }));
     }
 };

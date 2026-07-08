@@ -234,13 +234,32 @@ export const handleUserSearch = async (event) => {
 
     if (user) {
         state.currentUserId = normalizeId(user.id);
+        state.currentUserRole = String(user.role || 'user').toLowerCase();
         dom.userNameDisplay.textContent = user.name;
         dom.userDocumentDisplay.textContent = user.id;
         dom.userEmailDisplay.textContent = user.email;
 
+        dom.userSearchPanel.classList.add('hidden');
+        dom.tasksPanel.classList.remove('hidden');
+
+        if (state.currentUserRole === 'admin') {
+            dom.taskRegisterPanel.classList.remove('hidden');
+            dom.usersAdminPanel.classList.remove('hidden');
+            dom.tasksTable?.classList.remove('no-actions');
+            dom.filterUser.disabled = false;
+            dom.filterUserGroup?.classList.remove('hidden');
+            dom.filterUser.value = '';
+        } else {
+            dom.taskRegisterPanel.classList.add('hidden');
+            dom.usersAdminPanel.classList.add('hidden');
+            dom.tasksTable?.classList.add('no-actions');
+            dom.filterUser.disabled = true;
+            dom.filterUserGroup?.classList.add('hidden');
+            dom.filterUser.value = state.currentUserId;
+        }
+
         hideUserMessage();
         showUserCard();
-        dom.filterUser.value = state.currentUserId;
         renderFilteredTasks();
         showExportTasksButton(getUserTasks(state.currentUserId));
         showNotification(`Usuario ${user.name} encontrado.`, 'success');

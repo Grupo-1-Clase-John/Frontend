@@ -499,6 +499,11 @@ select[multiple] option {
     min-width: 640px;
 }
 
+.tasks__table.no-actions th:last-child,
+.tasks__table.no-actions td:last-child {
+    display: none;
+}
+
 .tasks__head {
     background: rgba(79, 70, 229, 0.12);
 }

@@ -25,15 +25,21 @@ export const dom = {
     taskStatusSelect: document.getElementById("taskStatus"),
     taskUsers: document.getElementById("taskUsers"),
     submitTaskBtn: document.getElementById("submitTaskBtn"),
+    taskRegisterPanel: document.getElementById("taskRegisterPanel"),
+    tasksPanel: document.getElementById("tasksPanel"),
+    usersAdminPanel: document.getElementById("usersAdminPanel"),
+    userSearchPanel: document.getElementById("userSearchPanel"),
     taskTitleError: document.getElementById("taskTitleError"),
     taskDescriptionError: document.getElementById("taskDescriptionError"),
     taskStatusError: document.getElementById("taskStatusError"),
     taskUsersError: document.getElementById("taskUsersError"),
     tasksTableBody: document.getElementById("tasksTableBody"),
     tasksEmptyState: document.getElementById("tasksEmptyState"),
+    tasksTable: document.querySelector('.tasks__table'),
     exportTasksBtn: document.getElementById("exportTasksBtn"),
     filterStatus: document.getElementById("filterStatus"),
     filterUser: document.getElementById("filterUser"),
+    filterUserGroup: document.getElementById("filterUser")?.closest('.filters__group'),
     filterDateOrder: document.getElementById("filterDateOrder"),
 };
 
@@ -41,6 +47,7 @@ export const dom = {
 // Estado global de la aplicación
 export const state = {
     currentUserId: null,
+    currentUserRole: null,
     editingTaskId: null, 
     dbUsers: [],
     dbTasks: [],
