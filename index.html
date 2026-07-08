@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grupo 1 - Gestión de Tareas por Usuario</title>
+    <link rel="stylesheet" href="./src/styles.css">
+</head>
+<body>
+    <div class="page">
+        <header class="page__header header">
+            <div class="header__content">
+                <h1 class="header__title">Gestión de Tareas</h1>
+                <p class="header__subtitle"><b>USUARIOS</b></p>
+            </div>
+        </header>
+
+        <main class="page__main main-content">
+            <section class="user-search user-search--panel" id="userSearchPanel">
+                <div class="user-search__card card">
+                    <h2 class="card__title">ID Usuario</h2>
+                    <form id="userSearchForm" class="user-search__form form" novalidate>
+                        <div class="form__group form__group--inline">
+                            <label for="userDocument" class="form__label">Documento del usuario</label>
+                            <input
+                                type="text"
+                                id="userDocument"
+                                class="form__input"
+                                name="userDocument"
+                                placeholder="Ingrese el documento"
+                                aria-required="true"
+                                aria-describedby="userDocumentError"
+                                autocomplete="off"
+                            >
+                            <span class="form__error" id="userDocumentError" aria-live="polite"></span>
+                        </div>
+
+                        <div class="user-search__actions">
+                            <button type="submit" class="btn btn--primary">Buscar usuario</button>
+                        </div>
+                    </form>
+
+                    <div class="user-search__result user-card hidden" id="userCard" aria-live="polite">
+                        <h3 class="user-card__title">Usuario encontrado</h3>
+                        <p class="user-card__item"><strong>Nombre:</strong> <span id="userNameDisplay"></span></p>
+                        <p class="user-card__item"><strong>Documento:</strong> <span id="userDocumentDisplay"></span></p>
+                        <p class="user-card__item"><strong>Email:</strong> <span id="userEmailDisplay"></span></p>
+                    </div>
+
+                    <p class="user-search__message info-message hidden" id="userSearchMessage"></p>
+                </div>
+
+                <div class="robot" id="robot" role="img" aria-label="Robot futurista">
+                    <div class="robot__antenna"></div>
+                    <div class="robot__head">
+                        <div class="robot__eye robot__eye--left"></div>
+                        <div class="robot__eye robot__eye--right"></div>
+                    </div>
+                    <div class="robot__body">
+                        <div class="robot__chest-grid"></div>
+                    </div>
+                    <div class="robot__scanline"></div>
+                </div>
+            </section>
+
+            <section class="task-register task-register--panel hidden" id="taskRegisterPanel">
+                <div class="task-register__card card">
+                    <h2 class="card__title">Registrar Tarea</h2>
+                    <form id="taskForm" class="task-register__form form" novalidate>
+                        <fieldset class="task-register__fieldset" id="taskFormFieldset">
+                            <div class="form__group">
+                                <label for="taskTitle" class="form__label">Título de la tarea</label>
+                                <input
+                                    type="text"
+                                    id="taskTitle"
+                                    class="form__input"
+                                    name="taskTitle"
+                                    placeholder="Escribe el título"
+                                    aria-required="true"
+                                    aria-describedby="taskTitleError"
+                                >
+                                <span class="form__error" id="taskTitleError" aria-live="polite"></span>
+                            </div>
+
+                            <div class="form__group">
+                                <label for="taskDescription" class="form__label">Descripción</label>
+                                <textarea
+                                    id="taskDescription"
+                                    class="form__input form__textarea"
+                                    name="taskDescription"
+                                    rows="4"
+                                    placeholder="Describe la tarea"
+                                    aria-required="true"
+                                    aria-describedby="taskDescriptionError"
+                                ></textarea>
+                                <span class="form__error" id="taskDescriptionError" aria-live="polite"></span>
+                            </div>
+
+                            <div class="form__group">
+                                <label for="taskStatus" class="form__label">Estado de la tarea</label>
+                                <select id="taskStatus" class="form__input" name="taskStatus" aria-required="true" aria-describedby="taskStatusError">
+                                    <option value="">Selecciona un estado</option>
+                                    <option value="pendiente">Pendiente</option>
+                                    <option value="en-proceso">En proceso</option>
+                                    <option value="completada">Completada</option>
+                                </select>
+                                <span class="form__error" id="taskStatusError" aria-live="polite"></span>
+                            </div>
+
+                            <div class="form__group">
+                                <label for="taskUsers" class="form__label">Usuarios asignados</label>
+                                <select id="taskUsers" class="form__input" name="taskUsers" multiple aria-required="true" aria-describedby="taskUsersError">
+                                </select>
+                                <span class="form__error" id="taskUsersError" aria-live="polite"></span>
+                            </div>
+
+                            <div class="task-register__actions">
+                                <button type="submit" class="btn btn--primary" id="submitTaskBtn">Registrar tarea</button>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </section>
+
+            <section class="tasks tasks--panel hidden" id="tasksPanel">
+                <div class="tasks__card card">
+                    <div class="tasks__header">
+                        <h2 class="card__title">Tareas registradas</h2>
+                        
+                    </div>
+
+                    <div class="tasks__filters filters">
+                        <div class="filters__group">
+                            <label for="filterStatus" class="filters__label">Estado</label>
+                            <select id="filterStatus" class="filters__select">
+                                <option value="">Todos</option>
+                                <option value="pendiente">Pendiente</option>
+                                <option value="en-proceso">En Proceso</option>
+                                <option value="completada">Completada</option>
+                            </select>
+                        </div>
+                        <div class="filters__group">
+                            <label for="filterUser" class="filters__label">Usuario</label>
+                            <select id="filterUser" class="filters__select">
+                                <option value="">Todos</option>
+                            </select>
+                        </div>
+                        <div class="filters__group">
+                            <label for="filterDateOrder" class="filters__label">Ordenar por fecha</label>
+                            <select id="filterDateOrder" class="filters__select">
+                                <option value="">Sin orden</option>
+                                <option value="asc">Ascendente</option>
+                                <option value="desc">Descendente</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="tasks__table-wrapper">
+                        <table class="tasks__table" aria-label="Lista de tareas">
+                            <thead class="tasks__head">
+                                <tr>
+                                    <th class="tasks__column">Título</th>
+                                    <th class="tasks__column">Descripción</th>
+                                    <th class="tasks__column">Estado</th>
+                                    <th class="tasks__column">Usuario</th>
+                                    <th class="tasks__column">Fecha/Hora</th>
+                                    <th class="tasks__column">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tasksTableBody" class="tasks__body"></tbody>
+                        </table>
+
+                        <div class="tasks__empty" id="tasksEmptyState">
+                            <p>Aún no hay tareas registradas.</p>
+                        </div>
+
+                        <div id="exportTasksSection" class="tasks__export">
+                            <button id="exportTasksBtn" class="btn btn--primary hidden">Exportar tareas a JSON</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="users-admin users-admin--panel hidden" id="usersAdminPanel">
+                <div class="card">
+                    <div class="tasks__header">
+                        <h2 class="card__title">Administración de Usuarios</h2>
+                        <button id="addUserBtn" class="btn btn--primary">Agregar Usuario</button>
+                    </div>
+
+                    <form id="userForm" class="form hidden" novalidate>
+                        <div class="form__group">
+                            <label for="userDocInput" class="form__label">Documento</label>
+                            <input type="text" id="userDocInput" class="form__input" placeholder="Ingrese el documento" autocomplete="off">
+                            <span id="userDocError" class="form__error"></span>
+                        </div>
+                        <div class="form__group">
+                            <label for="userNameInput" class="form__label">Nombre completo</label>
+                            <input type="text" id="userNameInput" class="form__input" placeholder="Ingrese el nombre" autocomplete="off">
+                            <span id="userNameError" class="form__error"></span>
+                        </div>
+                        <div class="form__group">
+                            <label for="userEmailInput" class="form__label">Email</label>
+                            <input type="email" id="userEmailInput" class="form__input" placeholder="Ingrese el email" autocomplete="off">
+                            <span id="userEmailError" class="form__error"></span>
+                        </div>
+                        <div class="task-register__actions">
+                            <button type="submit" id="submitUserBtn" class="btn btn--primary">Guardar Usuario</button>
+                            <button type="button" id="cancelUserBtn" class="btn btn--primary">Cancelar</button>
+                        </div>
+                    </form>
+
+                    <div class="tasks__table-wrapper">
+                        <table class="tasks__table" aria-label="Lista de usuarios">
+                            <thead class="tasks__head">
+                                <tr>
+                                    <th class="tasks__column">Documento</th>
+                                    <th class="tasks__column">Nombre</th>
+                                    <th class="tasks__column">Email</th>
+                                    <th class="tasks__column">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="usersTableBody" class="tasks__body"></tbody>
+                        </table>
+                        <div id="usersEmptyState" class="tasks__empty">
+                            <p>No hay usuarios registrados.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="page__footer footer">
+            <p class="footer__text">Módulo básico de gestión de tareas | Ejercicio DOM</p>
+        </footer>
+    </div>
+
+    <script src="./src/main.js" type="module"></script>
+</body>
+</html>
