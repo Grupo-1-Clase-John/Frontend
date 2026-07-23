@@ -78,16 +78,12 @@ export const findUserByDocument = (documentValue) => {
 
 // Filtra las tareas del estado actual combinando estado, usuario y orden por fecha.
 export const filterTasks = ({ status, userId, dateOrder } = {}) => {
-    let tasks = state.dbTasks;
+    let tasks = [...state.dbTasks];
 
     if (status) {
-        var priority = [];
-        var rest = [];
-        tasks.forEach(function(t) {
-            if (t.status === status) { priority.push(t); }
-            else { rest.push(t); }
-        });
-        tasks = priority.concat(rest);
+        const priority = tasks.filter(t => t.status === status);
+        const rest = tasks.filter(t => t.status !== status);
+        tasks = [...priority, ...rest];
     }
 
     if (userId) {
@@ -249,13 +245,15 @@ export const handleUserSearch = async (event) => {
             dom.filterUser.disabled = false;
             dom.filterUserGroup?.classList.remove('hidden');
             dom.filterUser.value = '';
+            dom.taskUsers.closest('.form__group').classList.remove('hidden');
         } else {
-            dom.taskRegisterPanel.classList.add('hidden');
+            dom.taskRegisterPanel.classList.remove('hidden');
             dom.usersAdminPanel.classList.add('hidden');
-            dom.tasksTable?.classList.add('no-actions');
             dom.filterUser.disabled = true;
             dom.filterUserGroup?.classList.add('hidden');
             dom.filterUser.value = state.currentUserId;
+            dom.taskUsers.closest('.form__group').classList.add('hidden');
+            dom.tasksTable?.classList.add('no-actions');
         }
 
         hideUserMessage();
@@ -282,8 +280,12 @@ export const handleTaskSubmit = async (event) => {
         return;
     }
 
-    const selectedUserIds = Array.from(dom.taskUsers.selectedOptions).map(o => normalizeId(o.value));
-    if (selectedUserIds.length === 0) {
+    const isAdmin = state.currentUserRole === 'admin';
+    const selectedUserIds = isAdmin
+        ? Array.from(dom.taskUsers.selectedOptions).map(o => normalizeId(o.value))
+        : [state.currentUserId];
+
+    if (isAdmin && selectedUserIds.length === 0) {
         showError(dom.taskUsersError, 'Seleccione al menos un usuario');
         return;
     }
@@ -359,9 +361,12 @@ export const handleTaskEdit = (taskId) => {
     dom.taskStatusSelect.value = task.status;
 
     const taskUserIds = (task.userIds || []).map(normalizeId);
-    Array.from(dom.taskUsers.options).forEach(opt => {
-        opt.selected = taskUserIds.includes(normalizeId(opt.value));
-    });
+    const taskUsersGroup = dom.taskUsers.closest('.form__group');
+    if (!taskUsersGroup.classList.contains('hidden')) {
+        Array.from(dom.taskUsers.options).forEach(opt => {
+            opt.selected = taskUserIds.includes(normalizeId(opt.value));
+        });
+    }
 
     clearAllErrors();
     hideUserMessage();
@@ -371,32 +376,9 @@ export const handleTaskEdit = (taskId) => {
     dom.taskTitleInput.focus();
 };
 // Elimina una tarea tanto del backend como de la visualización, cuando se ejecuta el evento asociado
-export const handleTaskDelete = async (event) => {
-    event.preventDefault();
-
-    event.stopPropagation();
-
-    if (event.target.tagName === 'BUTTON' && event.target.textContent === 'Eliminar') {
-        const row = event.target.closest('.tasks__row');
-
-        if (row && row.dataset.taskId) {
-            const success = await deleteTask(row.dataset.taskId);
-    
-            if (success) {
-                row.remove();
-    
-                showNotification('Tarea eliminada correctamente.', 'success');
-                renderFilteredTasks();
-                showUserMessage('Tarea eliminada correctamente.');
-            } else {
-                showNotification('Error al eliminar la tarea.', 'error');
-                showUserMessage('Error al eliminar la tarea.', true);
-            }
-        } else {
-            showNotification('No se pudo encontrar la tarea para eliminar.', 'error');
-            showUserMessage('No se pudo encontrar la tarea para eliminar.', true);
-        }
-    }
+export const handleTaskDelete = async (taskId) => {
+    const success = await deleteTask(taskId);
+    if (success) renderFilteredTasks();
 };
 
 //HELPERS

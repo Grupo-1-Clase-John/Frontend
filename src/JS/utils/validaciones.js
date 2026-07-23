@@ -55,7 +55,8 @@ export const validateTaskForm = () => {
         dom.taskStatusSelect.classList.remove('error');
     }
 
-    if (dom.taskUsers.selectedOptions.length === 0) {
+    const taskUsersGroup = dom.taskUsers.closest('.form__group');
+    if (!taskUsersGroup.classList.contains('hidden') && dom.taskUsers.selectedOptions.length === 0) {
         showError(dom.taskUsersError, 'Seleccione al menos un usuario');
         isValid = false;
     } else {

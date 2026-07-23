@@ -21,7 +21,7 @@ export const exportTasks = async (event) => {
             throw new Error('Error al obtener las tareas para exportar');
         }
 
-        const tasks = await response.json();
+        const { tasks } = await response.json();
 
         // Crear un enlace de descarga para el archivo JSON
         const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(tasks, null, 2));

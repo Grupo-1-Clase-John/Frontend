@@ -157,8 +157,10 @@ button {
 }
 
 .main-content {
+    max-width: 1200px;
+    margin: 0 auto;
     display: grid;
-    grid-template-columns: minmax(280px, 1.1fr) minmax(280px, 0.9fr);
+    grid-template-columns: 1fr;
     gap: var(--spacing-xl);
     align-items: start;
 }
@@ -660,13 +662,9 @@ select[multiple] option {
  * ============================================
  */
 
-@media (max-width: 1024px) {
+@media (max-width: 1280px) {
     .main-content {
-        grid-template-columns: 1fr;
-    }
-
-    .tasks--panel {
-        grid-column: 1 / -1;
+        max-width: 100%;
     }
 }
 

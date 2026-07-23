@@ -106,24 +106,18 @@ export const addTaskToTable = (task) => {
 
     const actionsCell = document.createElement('td');
     actionsCell.classList.add('tasks__cell');
+    actionsCell.innerHTML = `
+        <button class="btn btn--primary btn--small">Eliminar</button>
+        <button type="button" class="btn btn--primary btn--small">Editar</button>
+    `;
 
-    if (state.currentUserRole === 'admin') {
-        const deleteButton = document.createElement('button');  // Botón "Eliminar" 
-        deleteButton.classList.add('btn', 'btn--primary', 'btn--small');
-        deleteButton.textContent = 'Eliminar';
-        actionsCell.appendChild(deleteButton);
-
-        const editButton = document.createElement('button');    // Botón "Editar" 
-        editButton.type = 'button';                            
-        editButton.classList.add('btn', 'btn--primary', 'btn--small');
-        editButton.textContent = 'Editar';
-        editButton.addEventListener('click', () => {             // Al hacer clic emite el evento `task:edit`:
-            document.dispatchEvent(new CustomEvent('task:edit', { 
-                detail: { taskId: task.id }                      // Payload: id de la tarea a editar.
-            }));
-        });
-        actionsCell.appendChild(editButton);
-    }
+    const [deleteBtn, editBtn] = actionsCell.children;
+    deleteBtn.addEventListener('click', () => {
+        document.dispatchEvent(new CustomEvent('task:delete', { detail: { taskId: task.id } }));
+    });
+    editBtn.addEventListener('click', () => {
+        document.dispatchEvent(new CustomEvent('task:edit', { detail: { taskId: task.id } }));
+    });
 
     row.appendChild(titleCell);         
     row.appendChild(descriptionCell);   

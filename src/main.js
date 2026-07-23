@@ -42,7 +42,9 @@ document.addEventListener('task:edit', (event) => {
     handleTaskEdit(event.detail.taskId);
 });
 
-dom.tasksTableBody.addEventListener('click', handleTaskDelete);
+document.addEventListener('task:delete', (event) => {
+    handleTaskDelete(event.detail.taskId);
+});
 
 dom.exportTasksBtn.addEventListener('click', exportTasks);
 
